@@ -8,5 +8,9 @@ namespace AirlineReservationSystem.Controllers
         {
             return View();
         }
+        public IActionResult Add_Flight()
+        {
+            return View();
+        }
     }
 }
