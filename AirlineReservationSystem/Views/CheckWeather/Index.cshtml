@@ -3,114 +3,202 @@
 <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
 
 
+    <div class="hero" data-bg-image="images/Background Weather.jpg">
+        <div class="container">
+            <form action="#" class="find-location">
+                <input id="city_input" type="text" placeholder="Find your location..." style="border: 1px dashed #009ad8;">
+                <input id="btn" type="submit" value="Find">
+            </form>
+        </div>
+    </div>
+    <div class="forecast-table">
+        <div class="container">
+            <div class="forecast-container">
+                <div class="today forecast">
+                    <div class="forecast-header">
+                        <div id="response_day" class="day">Monday</div>
+                        <div id="response_date" class="date">6 Oct</div>
+                    </div> <!-- .forecast-header -->
+                    <div class="forecast-content">
+                        <div id="response_name" class="location">New York</div>
+                        <div class="degree" style="display: flex; justify-content: space-evenly;">
+                            <div class="num">23<sup>o</sup>C</div>
+                            <div class="forecast-icon">
+                                <img src="images/icons/icon-1.svg" alt="" width=90>
+                            </div>
+                        </div>
+                        <span><img src="images/icon-umberella.png" alt=""><span id="response_chance_of_rain">20%</span></span>
+                        <span><img src="images/icon-wind.png" alt=""><span id="response_wind">18km/h</span></span>
+                        <span><img src="images/icon-compass.png" alt=""><span id="response_direction">East</span></span>
+                    </div>
+                </div>
+                <!-- Additional forecast days -->
+                <div class="forecast" id="forecast_1">
+                    <div class="forecast-header">
+                        <div class="day">Tuesday</div>
+                    </div> <!-- .forecast-header -->
+                    <div class="forecast-content">
+                        <div class="forecast-icon">
+                            <img src="images/icons/icon-3.svg" alt="" width=48>
+                        </div>
+                        <div class="degree">23<sup>o</sup>C</div>
+                        <small>18<sup>o</sup></small>
+                    </div>
+                </div>
+                <div class="forecast" id="forecast_2">
+                    <div class="forecast-header">
+                        <div class="day">Wednesday</div>
+                    </div> <!-- .forecast-header -->
+                    <div class="forecast-content">
+                        <div class="forecast-icon">
+                            <img src="images/icons/icon-3.svg" alt="" width=48>
+                        </div>
+                        <div class="degree">23<sup>o</sup>C</div>
+                        <small>18<sup>o</sup></small>
+                    </div>
+                </div>
+                <div class="forecast" id="forecast_3">
+                    <div class="forecast-header">
+                        <div class="day">Thursday</div>
+                    </div> <!-- .forecast-header -->
+                    <div class="forecast-content">
+                        <div class="forecast-icon">
+                            <img src="images/icons/icon-3.svg" alt="" width=48>
+                        </div>
+                        <div class="degree">23<sup>o</sup>C</div>
+                        <small>18<sup>o</sup></small>
+                    </div>
+                </div>
+                <div class="forecast" id="forecast_4">
+                    <div class="forecast-header">
+                        <div class="day">Friday</div>
+                    </div> <!-- .forecast-header -->
+                    <div class="forecast-content">
+                        <div class="forecast-icon">
+                            <img src="images/icons/icon-3.svg" alt="" width=48>
+                        </div>
+                        <div class="degree">23<sup>o</sup>C</div>
+                        <small>18<sup>o</sup></small>
+                    </div>
+                </div>
+                <div class="forecast" id="forecast_5">
+                    <div class="forecast-header">
+                        <div class="day">Saturday</div>
+                    </div> <!-- .forecast-header -->
+                    <div class="forecast-content">
+                        <div class="forecast-icon">
+                            <img src="images/icons/icon-3.svg" alt="" width=48>
+                        </div>
+                        <div class="degree">23<sup>o</sup>C</div>
+                        <small>18<sup>o</sup></small>
+                    </div>
+                </div>
+                <div class="forecast" id="forecast_6">
+                    <div class="forecast-header">
+                        <div class="day">Sunday</div>
+                    </div> <!-- .forecast-header -->
+                    <div class="forecast-content">
+                        <div class="forecast-icon">
+                            <img src="images/icons/icon-3.svg" alt="" width=48>
+                        </div>
+                        <div class="degree">23<sup>o</sup>C</div>
+                        <small>18<sup>o</sup></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script>
+        (function ($, document, window) {
+
+            $(document).ready(function () {
+
+                // Cloning main navigation for mobile menu
+                $(".mobile-navigation").append($(".main-navigation .menu").clone());
+
+                // Mobile menu toggle
+                $(".menu-toggle").click(function () {
+                    $(".mobile-navigation").slideToggle();
+                });
+
+                var map = $(".map");
+                var latitude = map.data("latitude");
+                var longitude = map.data("longitude");
+                if (map.length) {
+
+                    map.gmap3({
+                        map: {
+                            options: {
+                                center: [latitude, longitude],
+                                zoom: 15,
+                                scrollwheel: false
+                            }
+                        },
+                        marker: {
+                            latLng: [latitude, longitude],
+                        }
+                    });
+
+                }
+            });
+
+            $(window).load(function () {
+
+            });
+
+        })(jQuery, document, window);
+    </script>
+
+    <script>
+        const input = document.getElementById("city_input");
+        const button = document.getElementById("btn");
+
+        async function getData(city_name) {
+            const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=7de327067f2d4bed82e143332233007&q=${city_name}&days=7&aqi=no`);
+            return await response.json();
+        }
+
+        button.addEventListener("click", async (e) => {
+            e.preventDefault(); // Prevent the form from submitting
+            const value = input.value;
+            const result = await getData(value);
+            const forecastDays = result.forecast.forecastday;
+
+            // Days of the week array
+            const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            const totalDays = 7;
+
+            // Update today's forecast
+            document.getElementById('response_name').innerText = result.location.name;
+            document.getElementById('response_day').innerText = new Date(forecastDays[0].date).toLocaleDateString('en-US', { weekday: 'long' });
+            document.getElementById('response_date').innerText = new Date(forecastDays[0].date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+            document.querySelector('.today .degree .num').innerHTML = `${result.current.temp_c}<sup>o</sup>C`;
+            document.querySelector('.today .forecast-icon img').src = `https:${result.current.condition.icon}`;
+
+            document.getElementById('response_chance_of_rain').innerText = `${forecastDays[0].day.daily_chance_of_rain}%`;
+            document.getElementById('response_wind').innerText = `${result.current.wind_kph}km/h`;
+
+            // Fill forecast for the week
+            for (let i = 0; i < totalDays; i++) {
+                const dayIndex = i % forecastDays.length; // Repeat days if less than 7 days are available
+                const dayData = forecastDays[dayIndex];
+                const forecastElement = document.getElementById(`forecast_${i}`);
+
+                if (forecastElement) {
+                    forecastElement.querySelector('.day').innerText = daysOfWeek[i];
+                    forecastElement.querySelector('.degree').innerHTML = `${dayData.day.maxtemp_c}<sup>o</sup>C`;
+                    forecastElement.querySelector('.forecast-icon img').src = `https:${dayData.day.condition.icon}`;
+                    forecastElement.querySelector('small').innerHTML = `${dayData.day.mintemp_c}<sup>o</sup>C`;
+                }
+            }
+        });
 
 
-<div class="hero" data-bg-image="~/weather/images/banner@2x.png">
-	<div class="container">
-		<form action="#" class="find-location">
-			<input type="text" placeholder="Find your location...">
-			<input type="submit" value="Find">
-		</form>
-
-	</div>
-</div>
-<div class="forecast-table">
-	<div class="container">
-		<div class="forecast-container">
-			<div class="today forecast">
-				<div class="forecast-header">
-					<div class="day">Monday</div>
-					<div class="date">6 Oct</div>
-				</div> <!-- .forecast-header -->
-				<div class="forecast-content">
-					<div class="location">New York</div>
-					<div class="degree">
-						<div class="num">23<sup>o</sup>C</div>
-						<div class="forecast-icon">
-							<img src="~/weather/images/icons/icon-1.svg" alt="" width=90>
-						</div>
-					</div>
-					<span><img src="~/weather/images/icon-umberella.png" alt="">20%</span>
-					<span><img src="~/weather/images/icon-wind.png" alt="">18km/h</span>
-					<span><img src="~/weather/images/icon-compass.png" alt="">East</span>
-				</div>
-			</div>
-			<div class="forecast">
-				<div class="forecast-header">
-					<div class="day">Tuesday</div>
-				</div> <!-- .forecast-header -->
-				<div class="forecast-content">
-					<div class="forecast-icon">
-						<img src="~/weather/images/icons/icon-3.svg" alt="" width=48>
-					</div>
-					<div class="degree">23<sup>o</sup>C</div>
-					<small>18<sup>o</sup></small>
-				</div>
-			</div>
-			<div class="forecast">
-				<div class="forecast-header">
-					<div class="day">Wednesday</div>
-				</div> <!-- .forecast-header -->
-				<div class="forecast-content">
-					<div class="forecast-icon">
-						<img src="~/weather/images/icons/icon-5.svg" alt="" width=48>
-					</div>
-					<div class="degree">23<sup>o</sup>C</div>
-					<small>18<sup>o</sup></small>
-				</div>
-			</div>
-			<div class="forecast">
-				<div class="forecast-header">
-					<div class="day">Thursday</div>
-				</div> <!-- .forecast-header -->
-				<div class="forecast-content">
-					<div class="forecast-icon">
-						<img src="images/icons/icon-7.svg" alt="" width=48>
-					</div>
-					<div class="degree">23<sup>o</sup>C</div>
-					<small>18<sup>o</sup></small>
-				</div>
-			</div>
-			<div class="forecast">
-				<div class="forecast-header">
-					<div class="day">Friday</div>
-				</div> <!-- .forecast-header -->
-				<div class="forecast-content">
-					<div class="forecast-icon">
-						<img src="~/weather/images/icons/icon-12.svg" alt="" width=48>
-					</div>
-					<div class="degree">23<sup>o</sup>C</div>
-					<small>18<sup>o</sup></small>
-				</div>
-			</div>
-			<div class="forecast">
-				<div class="forecast-header">
-					<div class="day">Saturday</div>
-				</div> <!-- .forecast-header -->
-				<div class="forecast-content">
-					<div class="forecast-icon">
-						<img src="images/icons/icon-13.svg" alt="" width=48>
-					</div>
-					<div class="degree">23<sup>o</sup>C</div>
-					<small>18<sup>o</sup></small>
-				</div>
-			</div>
-			<div class="forecast">
-				<div class="forecast-header">
-					<div class="day">Sunday</div>
-				</div> <!-- .forecast-header -->
-				<div class="forecast-content">
-					<div class="forecast-icon">
-						<img src="images/icons/icon-14.svg" alt="" width=48>
-					</div>
-					<div class="degree">23<sup>o</sup>C</div>
-					<small>18<sup>o</sup></small>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
+    </script>
 
 <script src="~/weather/js/jquery-1.11.1.min.js"></script>
 <script src="~/weather/js/plugins.js"></script>
