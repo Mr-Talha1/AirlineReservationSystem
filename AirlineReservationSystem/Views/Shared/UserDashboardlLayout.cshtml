@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@* @model AirlineReservationSystem.Models.User *@
+<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -60,11 +62,11 @@
             <div class="author-content">
                 <div class="d-flex align-items-center">
                     <div class="author-img avatar-sm">
-                        <img src="~/images/team8.jpg" alt="testimonial image" />
+                        <img src="~/image/@ViewData["ImagePath"]" alt="@ViewData["Username"]" />
                     </div>
                     <div class="author-bio">
-                        <h4 class="author__title">Ali Tufan</h4>
-                        <span class="author__meta">Member Since May 2017</span>
+                        <h4 class="author__title">@User.Identity.Name</h4>
+                        <span class="author__meta">Member Since May 2017 @ViewData["CreatedAt"]</span>
                     </div>
                 </div>
             </div>
@@ -86,7 +88,7 @@
                         <a asp-controller="Dashboard" asp-action="Setting"><i class="la la-cog me-2 text-color-5"></i>Setting</a>
                     </li>
                     <li>
-                        <a asp-controller="Home" asp-action="Index"><i class="la la-power-off me-2 text-color-6"></i>Logout</a>
+                        <a asp-controller="Account" asp-action="Logout"><i class="la la-power-off me-2 text-color-6"></i>Logout</a>
                     </li>
                 </ul>
             </div>

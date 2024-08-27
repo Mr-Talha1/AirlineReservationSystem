@@ -1,4 +1,5 @@
-﻿@{
+﻿@model AirlineReservationSystem.Models.User
+@{
     Layout = "~/Views/Shared/UserDashboardlLayout.cshtml";
     ViewData["User_Profile"] = "active";
 }
@@ -50,24 +51,14 @@
                                             <td class="ps-0">
                                                 <div class="table-content">
                                                     <h3 class="title font-weight-medium">
-                                                        First Name
+                                                        User Name
                                                     </h3>
                                                 </div>
                                             </td>
                                             <td>:</td>
-                                            <td>Ali</td>
+                                            <td>@Model.Username</td>
                                         </tr>
-                                        <tr>
-                                            <td class="ps-0">
-                                                <div class="table-content">
-                                                    <h3 class="title font-weight-medium">
-                                                        Last Name
-                                                    </h3>
-                                                </div>
-                                            </td>
-                                            <td>:</td>
-                                            <td>Tufan</td>
-                                        </tr>
+                                        
                                         <tr>
                                             <td class="ps-0">
                                                 <div class="table-content">
@@ -77,8 +68,9 @@
                                                 </div>
                                             </td>
                                             <td>:</td>
-                                            <td>alitufan@gmail.com</td>
+                                            <td>@Model.Email</td>
                                         </tr>
+                                        
                                         <tr>
                                             <td class="ps-0">
                                                 <div class="table-content">
@@ -88,18 +80,40 @@
                                                 </div>
                                             </td>
                                             <td>:</td>
-                                            <td>+01 4561 3214</td>
+                                            <td>@Model.PhoneNumber</td>
                                         </tr>
                                         <tr>
                                             <td class="ps-0">
                                                 <div class="table-content">
                                                     <h3 class="title font-weight-medium">
-                                                        Date of Birth
+                                                        Credit Card
                                                     </h3>
                                                 </div>
                                             </td>
                                             <td>:</td>
-                                            <td>03 Jun 1990</td>
+                                            <td>@Model.PreferredCreditCard</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ps-0">
+                                                <div class="table-content">
+                                                    <h3 class="title font-weight-medium">
+                                                        Credit Card Information
+                                                    </h3>
+                                                </div>
+                                            </td>
+                                            <td>:</td>
+                                            <td>@Model.CreditCardInfo</td>
+                                        </tr> 
+                                        <tr>
+                                            <td class="ps-0">
+                                                <div class="table-content">
+                                                    <h3 class="title font-weight-medium">
+                                                        Sky Miles
+                                                    </h3>
+                                                </div>
+                                            </td>
+                                            <td>:</td>
+                                            <td>@Model.SkyMiles</td>
                                         </tr>
                                         <tr>
                                             <td class="ps-0">
@@ -111,7 +125,20 @@
                                             </td>
                                             <td>:</td>
                                             <td>
-                                                8800 Orchard Lake Road, Suite 180 Farmington Hills, U.S.A.
+                                                @Model.Address
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td class="ps-0">
+                                                <div class="table-content">
+                                                    <h3 class="title font-weight-medium">
+                                                        Last Edit Profile
+                                                    </h3>
+                                                </div>
+                                            </td>
+                                            <td>:</td>
+                                            <td>
+                                                @Model.UpdatedAt
                                             </td>
                                         </tr>
                                     </tbody>

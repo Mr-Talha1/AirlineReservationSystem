@@ -1,4 +1,4 @@
-﻿
+﻿@model AirlineReservationSystem.Models.User
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,6 +54,7 @@
                                     </li>
                                     <li>
                                         <a href="#"><i class="la la-envelope me-1"></i>trizen@example.com</a>
+
                                     </li>
                                 </ul>
                             </div>
@@ -143,14 +144,89 @@
                                     </div>
                                 </div> *@
 
-                                <div class="header-right-action">
-                                    <a href="#" class="theme-btn theme-btn-small theme-btn-transparent me-1" data-bs-toggle="modal"
-                                       data-bs-target="#signupPopupForm">Sign Up</a>
-                                    <a href="#" class="theme-btn theme-btn-small" data-bs-toggle="modal"
-                                       data-bs-target="#loginPopupForm">Login</a>
-                                </div>
+                                
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <div class="notification-item">
+                                        <div class="dropdown">
+                                            <a href="#" class="dropdown-toggle" id="userDropdownMenu"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-sm flex-shrink-0 me-2">
+                                                        <img src="~/image/user_placeholder.jpg" alt=" s" />
+                                                    </div>
+                                                    <span class="font-size-14 font-weight-bold" style="color: black;">@User.Identity.Name <i class="la la-angle-down"></i></span>
+                                                </div>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-reveal dropdown-menu-md dropdown-menu-right">
+                                                <div class="dropdown-item drop-reveal-header user-reveal-header">
+                                                    <h6 class="title text-uppercase">Welcome!</h6>
+                                                </div>
+                                                <div class="list-group drop-reveal-list user-drop-reveal-list">
+                                                    <a asp-action="Index" asp-controller="Dashboard"
+                                                    class="list-group-item list-group-item-action">
+                                                        <div class="msg-body">
+                                                            <div class="msg-content">
+                                                                <h3 class="title">
+                                                                    <i class="la la-user me-2"></i>My Profile
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <!-- end msg-body -->
+                                                    </a>
 
 
+                                                    <a asp-controller="Dashboard" asp-action="MyBooking"
+                                                    class="list-group-item list-group-item-action">
+                                                        <div class="msg-body">
+                                                            <div class="msg-content">
+                                                                <h3 class="title">
+                                                                    <i class="la la-shopping-cart me-2"></i>My Booking
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <!-- end msg-body -->
+                                                    </a>
+                                                   
+                                                    <a asp-action="Setting" asp-controller="Dashboard"
+                                                    class="list-group-item list-group-item-action">
+                                                        <div class="msg-body">
+                                                            <div class="msg-content">
+                                                                <h3 class="title">
+                                                                    <i class="la la-gear me-2"></i>Setting
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <!-- end msg-body -->
+                                                    </a>
+                                                    <div class="section-block"></div>
+                                                    <a asp-action="Logout" asp-controller="Account" class="list-group-item list-group-item-action">
+                                                        <div class="msg-body">
+                                                            <div class="msg-content">
+                                                                <h3 class="title">
+                                                                    <i class="la la-power-off me-2"></i>Logout
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <!-- end msg-body -->
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <!-- end dropdown-menu -->
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="header-right-action">
+                                        <a href="#" class="theme-btn theme-btn-small theme-btn-transparent me-1" data-bs-toggle="modal"
+                                           data-bs-target="#signupPopupForm">Sign Up</a>
+                                        <a href="#" class="theme-btn theme-btn-small" data-bs-toggle="modal"
+                                           data-bs-target="#loginPopupForm">Login</a>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -187,86 +263,7 @@
                                             <a asp-controller="ContactUs" asp-action="Index">Contact Us</a>
                                             
                                         </li>
-                                        <li>
-                                            <div class="notification-item">
-                                                <div class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" id="userDropdownMenu"
-                                                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar avatar-sm flex-shrink-0 me-2">
-                                                                <img src="~/images/team8.jpg" alt="team-img" />
-                                                            </div>
-                                                            <span class="font-size-14 font-weight-bold" style="color: black;">Ali Tufan <i class="la la-angle-down"></i></span>
-                                                        </div>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-reveal dropdown-menu-md dropdown-menu-right">
-                                                        <div class="dropdown-item drop-reveal-header user-reveal-header">
-                                                            <h6 class="title text-uppercase">Welcome!</h6>
-                                                        </div>
-                                                        <div class="list-group drop-reveal-list user-drop-reveal-list">
-                                                            <a asp-action="Index" asp-controller="Dashboard"
-                                                               class="list-group-item list-group-item-action">
-                                                                <div class="msg-body">
-                                                                    <div class="msg-content">
-                                                                        <h3 class="title">
-                                                                            <i class="la la-user me-2"></i>My Profile
-                                                                        </h3>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end msg-body -->
-                                                            </a>
-
-
-                                                            <a asp-controller="Dashboard" asp-action="MyBooking"
-                                                               class="list-group-item list-group-item-action">
-                                                                <div class="msg-body">
-                                                                    <div class="msg-content">
-                                                                        <h3 class="title">
-                                                                            <i class="la la-shopping-cart me-2"></i>My Booking
-                                                                        </h3>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end msg-body -->
-                                                            </a>
-                                                            <a asp-action="Index" asp-controller="Dashboard"
-                                                               class="list-group-item list-group-item-action">
-                                                                <div class="msg-body">
-                                                                    <div class="msg-content">
-                                                                        <h3 class="title">
-                                                                            <i class="la la-heart me-2"></i>My Reviews
-                                                                        </h3>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end msg-body -->
-                                                            </a>
-                                                            <a asp-action="Setting" asp-controller="Dashboard"
-                                                               class="list-group-item list-group-item-action">
-                                                                <div class="msg-body">
-                                                                    <div class="msg-content">
-                                                                        <h3 class="title">
-                                                                            <i class="la la-gear me-2"></i>Setting
-                                                                        </h3>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end msg-body -->
-                                                            </a>
-                                                            <div class="section-block"></div>
-                                                            <a href="index.html" class="list-group-item list-group-item-action">
-                                                                <div class="msg-body">
-                                                                    <div class="msg-content">
-                                                                        <h3 class="title">
-                                                                            <i class="la la-power-off me-2"></i>Logout
-                                                                        </h3>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end msg-body -->
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end dropdown-menu -->
-                                                </div>
-                                            </div>
-                                        </li>
+                                       
                                        @*  <li>
                                             <a href="#">Home <i class="la la-angle-down"></i></a>
                                             <ul class="dropdown-menu-item">
@@ -692,20 +689,23 @@
                     </div>
                     <div class="modal-body">
                         <div class="contact-form-action">
-                            <form method="post">
+                            <form method="post" asp-action="SignUp" asp-controller="Account">
                                 <div class="input-box">
                                     <label class="label-text">Username</label>
                                     <div class="form-group">
                                         <span class="la la-user form-icon"></span>
-                                        <input class="form-control" type="text" name="text" placeholder="Type your username" />
+                                        <input asp-for="Username" class="form-control" type="Username" name="Username" placeholder="Type your username" />
+                                        <span asp-validation-for="Username" class="text-danger"></span>
                                     </div>
                                 </div>
+
                                 <!-- end input-box -->
                                 <div class="input-box">
                                     <label class="label-text">Email Address</label>
                                     <div class="form-group">
                                         <span class="la la-envelope form-icon"></span>
-                                        <input class="form-control" type="text" name="text" placeholder="Type your email" />
+                                        <input asp-for="Email" class="form-control" type="text" name="Email" placeholder="Type your email" />
+                                        <span asp-validation-for="Email" class="text-danger" name></span>
                                     </div>
                                 </div>
                                 <!-- end input-box -->
@@ -713,20 +713,32 @@
                                     <label class="label-text">Password</label>
                                     <div class="form-group">
                                         <span class="la la-lock form-icon"></span>
-                                        <input class="form-control" type="text" name="text" placeholder="Type password" />
+                                        <input asp-for="Password" class="form-control" type="text" name="Password" placeholder="Type password" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
-                                </div>
+                                </div> 
+                                
                                 <!-- end input-box -->
                                 <div class="input-box">
-                                    <label class="label-text">Repeat Password</label>
+                                    <label class="label-text">Address</label>
                                     <div class="form-group">
-                                        <span class="la la-lock form-icon"></span>
-                                        <input class="form-control" type="text" name="text" placeholder="Type again password" />
+                                        <span class="la la-home form-icon"></span>
+                                        <input asp-for="Address" class="form-control" type="text" name="Address" placeholder="Type your Address" />
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                </div><!-- end input-box -->
+                                <div class="input-box">
+                                    <label class="label-text">PhoneNumber</label>
+                                    <div class="form-group">
+                                        <span class="la la-phone form-icon"></span>
+                                        <input asp-for="PhoneNumber" class="form-control" type="text" name="PhoneNumber" placeholder="Type your PhoneNumber" />
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                     </div>
                                 </div>
+                               
                                 <!-- end input-box -->
                                 <div class="btn-box pt-3 pb-4">
-                                    <button type="button" class="theme-btn w-100">
+                                    <button type="submit" class="theme-btn w-100">
                                         Register Account
                                     </button>
                                 </div>
@@ -777,22 +789,26 @@
                     </div>
                     <div class="modal-body">
                         <div class="contact-form-action">
-                            <form method="post">
+                            <form method="post" asp-action="SignIn" asp-controller="Account">
+
                                 <div class="input-box">
-                                    <label class="label-text">Username</label>
+                                    <label class="label-text">Email</label>
                                     <div class="form-group">
                                         <span class="la la-user form-icon"></span>
-                                        <input class="form-control" type="text" name="text" placeholder="Type your username" />
+                                        <input class="form-control" type="text" name="Email" placeholder="Type your email" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
                                 </div>
+
                                 <!-- end input-box -->
                                 <div class="input-box">
                                     <label class="label-text">Password</label>
                                     <div class="form-group mb-2">
                                         <span class="la la-lock form-icon"></span>
-                                        <input class="form-control" type="text" name="text" placeholder="Type your password" />
+                                        <input class="form-control" type="text" name="Password" placeholder="Type your password" />
                                     </div>
-                                    <div class="d-flex align-items-center justify-content-between">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                   @*  <div class="d-flex align-items-center justify-content-between">
                                         <div class="custom-checkbox mb-0">
                                             <input type="checkbox" class="form-check-input" id="rememberchb" />
                                             <label for="rememberchb">Remember me</label>
@@ -800,14 +816,15 @@
                                         <p class="forgot-password">
                                             <a href="recover.html">Forgot Password?</a>
                                         </p>
-                                    </div>
+                                    </div> *@
                                 </div>
                                 <!-- end input-box -->
                                 <div class="btn-box pt-3 pb-4">
-                                    <button type="button" class="theme-btn w-100">
+                                    <button type="submit" class="theme-btn w-100">
                                         Login Account
                                     </button>
                                 </div>
+                            </form>
                                 <div class="action-box text-center">
                                     <p class="font-size-14">Or Login Using</p>
                                     <ul class="social-profile py-3">
@@ -825,7 +842,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </form>
+                            
                         </div>
                         <!-- end contact-form-action -->
                     </div>
