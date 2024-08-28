@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<AirlineReservationSystem.Models.User>
+@{
     Layout = "_AdminLayout";
 }
 
@@ -34,18 +35,26 @@
                             
                             </thead>
                           <tbody>
-                        <td><img src="~/image/user_placeholder.jpg" alt="Alternate Text" width="70%" /></td>
-                        <td >User name</td>
-                        <td>Email</td>
-                        <td>Address</td>
-                        <td>PhoneNumber</td>
-                        <td>PreferredCreditCard</td>
-                        <td>CreditCardInfo</td>
-                        <td>SkyMiles</td>
-                        <td data-type="date" data-format="YYYY/DD/MM"></td>
-                        <td data-type="date">Action</td>
-                        </tr>
-                          </tbody>
+
+                              @foreach (var users in Model)
+            {
+                                <tr>
+                                    <td><img src="~/image/@users.ImagePath" alt="Alternate Text" width="70%"/></td>
+                                    <td >@users.Username</td>
+                                    <td>@users.Email</td>
+                                    <td>@users.Address</td>
+                                    <td>@users.PhoneNumber</td>
+                                    <td>@users.PreferredCreditCard</td>
+                                    <td>@users.CreditCardInfo</td>
+                                    <td>@users.SkyMiles</td>
+                                    <td data-type="date" data-format="YYYY/DD/MM">@users.CreatedAt</td>
+                                    <td><a asp-action="DeleteUser"asp-controller="Admin" asp-route-id="@users.UserId" >delete</a></td>
+                                </tr>
+
+                                @* @Url.Action("Admin", "", new { id = users.UserId }) *@
+
+                            }
+                        </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
 

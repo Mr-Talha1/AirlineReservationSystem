@@ -1,9 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AirlineReservationSystem.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly Models.AirlineReservationSystemContext _context;
+     
+        public AdminController(Models.AirlineReservationSystemContext context)
+        {
+            _context = context;
+        
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -14,7 +24,8 @@ namespace AirlineReservationSystem.Controllers
         }
         public IActionResult List_Of_User()
         {
-            return View();
+            var userdata = _context.Users.ToList();
+            return View(userdata);
         }
         public IActionResult List_Of_Flighs()
         {
@@ -24,6 +35,21 @@ namespace AirlineReservationSystem.Controllers
         public IActionResult List_Of_Cancel_Flights()
         {
             return View();
+        }
+
+
+        //Delete user
+        public IActionResult DeleteUser(int id)
+        {
+            var user_dats = _context.Users.Find(id);
+            if (user_dats == null)
+            {
+                return NotFound();
+            }
+            _context.Users.Remove(user_dats);
+            _context.SaveChanges(true);
+            return RedirectToAction("List_Of_User", "Admin");
+
         }
     }
 }
