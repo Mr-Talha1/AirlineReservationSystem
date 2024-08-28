@@ -94,7 +94,7 @@ namespace AirlineReservationSystem.Controllers
                 ViewData["ImagePath"] = userdata.ImagePath;
                 ViewData["UserName"] = userdata.Username;
                 ViewData["CreatedAt"] = userdata.CreatedAt;
-
+                user.ImagePath = userdata.ImagePath;
                 return View("setting", user);
             }
 
@@ -110,8 +110,11 @@ namespace AirlineReservationSystem.Controllers
                     user.UserImagePath.CopyTo(stream);
                 }
                 //delete old image file
-                string oldImagePath = environment.WebRootPath + "/image/" + userdata.ImagePath;
-                System.IO.File.Delete(oldImagePath);
+                if (userdata.ImagePath != "user_placeholder.jpg") {
+                    string oldImagePath = environment.WebRootPath + "/image/" + userdata.ImagePath;
+                    System.IO.File.Delete(oldImagePath);
+                }
+                
             }
             //user.ImagePath = newfileName;
             //user.Password = userdata.Password;
@@ -129,6 +132,29 @@ namespace AirlineReservationSystem.Controllers
             return RedirectToAction("setting", "Dashboard");
         }
 
+        public async Task<IActionResult> UpdateImage()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+            var userId = int.Parse(userIdClaim.Value);
 
+            var userdata = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+
+            string imageFullPath = environment.WebRootPath + "/image/" + userdata.ImagePath;
+            if (userdata.ImagePath != "user_placeholder.jpg")
+            {
+                System.IO.File.Delete(imageFullPath);
+
+                userdata.ImagePath = "user_placeholder.jpg";
+                _context.SaveChanges();
+                return RedirectToAction("setting", "Dashboard");
+            }
+            return RedirectToAction("setting", "Dashboard");
+        }
+
+        
     }
 }

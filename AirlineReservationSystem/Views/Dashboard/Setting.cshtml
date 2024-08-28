@@ -51,13 +51,18 @@
                                     <p class="pb-2 font-size-15 line-height-24">
                                         Max file size is 5MB, Minimum dimension: 150x150 And Suitable files are .jpg &amp; .png
                                     </p>
-                                    
+
+                                        
                                     <div class="file-upload-wrap file-upload-wrap-2">
-                                            <input type="file" class="multi file-upload-input with-preview" maxlength="1" asp-for="UserImagePath"/>
+                                            <input type="file" class="multi file-upload-input with-preview" maxlength="1" asp-for="UserImagePath" />
                                         <span class="file-upload-text"><i class="la la-upload me-2"></i>Upload Image</span>
-                                        <a href="#" class="theme-btn theme-btn-small">Remove Image</a>
+                                            @if (Model.ImagePath != "user_placeholder.jpg")
+                                        {
+                                            <a asp-action="UpdateImage" asp-controller="Dashboard" class="theme-btn theme-btn-small">Remove Image</a>
+
+                                            }
                                     </div>
-                                  
+                                       
                                 </div>
                             </div>
                             <div class="contact-form-action">
@@ -80,7 +85,7 @@
                                                 <label class="label-text">Email Address</label>
                                                 <div class="form-group">
                                                     <span class="la la-envelope form-icon"></span>
-                                                    <input class="form-control" value="@Model.Email" asp-for="Email" />
+                                                    <input class="form-control" value="@Model.Email" asp-for="Email" readonly />
                                                     <span asp-validation-for="Email" class="text-danger"></span>
                                                 </div>
                                             </div>
