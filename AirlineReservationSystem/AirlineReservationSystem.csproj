@@ -24,4 +24,11 @@
     <Folder Include="wwwroot\weather\sass\pages\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\css\imageUpload.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

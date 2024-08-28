@@ -12,5 +12,18 @@ namespace AirlineReservationSystem.Controllers
         {
             return View();
         }
+        public IActionResult List_Of_User()
+        {
+            return View();
+        }
+        public IActionResult List_Of_Flighs()
+        {
+            return View();
+        }
+
+        public IActionResult List_Of_Cancel_Flights()
+        {
+            return View();
+        }
     }
 }
