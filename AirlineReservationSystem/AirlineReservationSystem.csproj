@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\image\" />
     <Folder Include="wwwroot\weather\sass\pages\" />
   </ItemGroup>
 

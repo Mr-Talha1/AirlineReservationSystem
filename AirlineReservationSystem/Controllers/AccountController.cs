@@ -26,13 +26,12 @@ namespace AirlineReservationSystem.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                //user.PasswordHash = HashPassword(user.PasswordHash);
                 user.ImagePath = "user_placeholder.jpg";
                 user.CreatedAt = DateTime.Now;
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
 
-                await SignInUser(user);// will discuss it later
+                await SignInUser(user);//
                 return RedirectToAction("Index", "Home");
             }
 
