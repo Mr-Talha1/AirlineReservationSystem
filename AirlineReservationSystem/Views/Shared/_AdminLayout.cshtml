@@ -270,14 +270,14 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="index.html">
+                <a class="nav-link" asp-controller="Admin" asp-action="index">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <!-- End Dashboard Nav -->
 
-            <li class="nav-item">
+            <li class="nav-item" asp-controller="Admin" asp-action="List_Of_User">
                 <a class="nav-link collapsed" data-bs-target="#Users-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-menu-button-wide"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
