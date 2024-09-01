@@ -124,8 +124,8 @@ namespace AirlineReservationSystem.Controllers
             userdata.Address = user.Address;
             userdata.PhoneNumber = user.PhoneNumber;
             userdata.ImagePath = newfileName;
-            userdata.CreditCardInfo = user.CreditCardInfo;
-            userdata.PreferredCreditCard=user.PreferredCreditCard;
+            userdata.Age = user.Age;
+            userdata.Gender=user.Gender;
 
             //_context.Users.Add(user);
             _context.SaveChanges();

@@ -1,4 +1,5 @@
-﻿@model List<AirlineReservationSystem.Models.User>
+﻿@* @model List<AirlineReservationSystem.Models.User> *@
+@* @model List<User> *@
 @{
     Layout = "_AdminLayout";
 }
@@ -18,31 +19,34 @@
                     <div class="table-responsive">
                         <table class=" datatable table table-hover">
                             <thead>
-                                <tr>
+                                 </tr>
                                     <th>Image</th>
                                     <th>User Name</th>
                                     <th>Email</th>
                                     <th>Address</th>
                                     <th>Phone Number</th>
-                                    <th>Preferred Credit Card</th>
-                                    <th>Credit Card Info</th>
+                                    <th>Age</th>
+                                    <th>Gander</th>
                                     <th>SkyMiles</th>
                                     <th data-type="date" data-format="YYYY/DD/MM">Register Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                           <tbody>
-                        <td><img src="~/image/user_placeholder.jpg" alt="Alternate Text" width="70%" /></td>
-                        <td >User name</td>
-                        <td>Email</td>
-                        <td>Address</td>
-                        <td>PhoneNumber</td>
-                        <td>PreferredCreditCard</td>
-                        <td>CreditCardInfo</td>
-                        <td>SkyMiles</td>
-                        <td data-type="date" data-format="YYYY/DD/MM"></td>
-                        <td data-type="date">Action</td>
+                              @foreach(var users in Model){
+                                <tr>
+                        <td><img src="~/image/@users.ImagePath" alt="Alternate Text" width="70%" /></td>
+                                        <td>@users.Username</td>
+                                        <td>@users.Email</td>
+                        <td>@users.Address</td>
+                                        <td>@users.Address</td>
+                                        <td>@users.Age</td>
+                                        <td>@users.Gender</td>
+                                        <td>@users.SkyMiles</td>
+                                        <td data-type="date" data-format="YYYY/DD/MM">@users.CreatedAt</td>
+                                        <td data-type="date"><a asp-action="DeleteUser" asp-controller="Admin" asp-route-id="@users.UserId" onclick="return confirm('Are You Sure Delete this User?')"><i class="bi bi-trash" style="color:red"></i></a></td>
                         </tr>
+                                }
                           </tbody>
                         </table>
                     </div>

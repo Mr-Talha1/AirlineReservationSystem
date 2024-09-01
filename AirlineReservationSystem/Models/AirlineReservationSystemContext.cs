@@ -25,19 +25,18 @@ public partial class AirlineReservationSystemContext : DbContext
     {
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC84C38AB3");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCACB50C953E");
 
             entity.ToTable(tb => tb.HasTrigger("trg_UpdateTimestamp"));
 
-            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534BB4C3F3B").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534A15B3592").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.CreditCardInfo).HasMaxLength(100);
             entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.Gender).HasMaxLength(20);
             entity.Property(e => e.Password).HasMaxLength(255);
             entity.Property(e => e.PhoneNumber).HasMaxLength(20);
-            entity.Property(e => e.PreferredCreditCard).HasMaxLength(20);
             entity.Property(e => e.SkyMiles).HasDefaultValue(0);
             entity.Property(e => e.UpdatedAt).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Username).HasMaxLength(255);
