@@ -726,13 +726,46 @@
                                         <input asp-for="Address" class="form-control" type="text" name="Address" placeholder="Type your Address" />
                                         <span asp-validation-for="Address" class="text-danger"></span>
                                     </div>
-                                </div><!-- end input-box -->
+                                </div>
+                                
+                                <!-- end input-box -->
                                 <div class="input-box">
                                     <label class="label-text">PhoneNumber</label>
                                     <div class="form-group">
                                         <span class="la la-phone form-icon"></span>
                                         <input asp-for="PhoneNumber" class="form-control" type="text" name="PhoneNumber" placeholder="Type your PhoneNumber" />
                                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                               
+                                <!-- end input-box --> 
+
+                                <!-- end input-box -->
+                                <div class="input-box">
+                                    <label class="label-text">Age</label>
+                                    <div class="form-group">
+                                        <span class=" form-icon"></span>
+                                        <input asp-for="Age" class="form-control" type="number" name="Age" placeholder="Type your Age" />
+                                        <span asp-validation-for="Age" class="text-danger"></span>
+                                    </div>
+                                </div>
+                               
+                                <!-- end input-box -->
+
+                                <!-- end input-box -->
+                                <div class="input-box">
+                                    <label class="label-text">Gender</label>
+                                    <div class="form-group">
+                                        <span class=" form-icon"></span>
+
+                                        <select class="form-control" asp-for="Gender">
+
+						                <option value="Other" disabled selected>Select Gander</option>
+						                <option value="Male">Male</option>
+						                <option value="Female">Female</option>
+						
+					                   </select>
+					              <span asp-validation-for="Gender" class="text-danger"></span>
                                     </div>
                                 </div>
                                

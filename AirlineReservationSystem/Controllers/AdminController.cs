@@ -16,7 +16,8 @@ namespace AirlineReservationSystem.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var usercount = _context.Users.Count();
+            return View(usercount);
         }
         public IActionResult Add_Flight()
         {
@@ -24,7 +25,7 @@ namespace AirlineReservationSystem.Controllers
         }
         public IActionResult List_Of_User()
         {
-            var userdata = _context.Users.ToList();
+            var userdata = _context.Users.OrderByDescending(x=> x.UserId);
             return View(userdata);
         }
         public IActionResult List_Of_Flighs()
