@@ -1,4 +1,4 @@
-﻿@* @model List<AirlineReservationSystem.Models.User> *@
+﻿@model List<AirlineReservationSystem.Models.User>
 @* @model List<User> *@
 @{
     Layout = "_AdminLayout";
@@ -35,7 +35,7 @@
                           <tbody>
                               @foreach(var users in Model){
                                 <tr>
-                        <td><img src="~/image/@users.ImagePath" alt="Alternate Text" width="70%" /></td>
+                        <td><img src="~/image/@users.ImagePath" alt="Alternate Text" width="80px" /></td>
                                         <td>@users.Username</td>
                                         <td>@users.Email</td>
                         <td>@users.Address</td>

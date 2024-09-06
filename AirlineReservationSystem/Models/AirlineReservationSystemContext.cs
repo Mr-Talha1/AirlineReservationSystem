@@ -15,6 +15,8 @@ public partial class AirlineReservationSystemContext : DbContext
     {
     }
 
+    public virtual DbSet<Airline> Airlines { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -23,6 +25,17 @@ public partial class AirlineReservationSystemContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Airline>(entity =>
+        {
+            entity.HasKey(e => e.AirlineId).HasName("PK__Airlines__DC4582732DA8B322");
+
+            entity.Property(e => e.AirlineId).HasColumnName("AirlineID");
+            entity.Property(e => e.AirlineName).HasMaxLength(100);
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCACB50C953E");
