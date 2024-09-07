@@ -2,7 +2,13 @@
 @{
     Layout = "_AdminLayout";
 }
-
+@if (TempData["AilineError"] != null)
+    {
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>  @TempData["AilineName"]</strong>   @TempData["AilineError"]
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+    }
 <div class="pagetitle">
     <h1>Airlines</h1>
 </div><!-- End Page Title -->

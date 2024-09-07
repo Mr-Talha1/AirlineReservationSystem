@@ -39,7 +39,15 @@
                                 Looks good!
                             </div>
                         </div>
-
+                        <div class="my-3">
+                            @if (TempData["airlineError"] != null)
+                            {
+                                <div class="alert alert-danger d-flex align-items-center gap-3" role="alert">
+                                    <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+                                    @TempData["airlineError"]
+                                </div>
+                            }
+                        </div>
                          <div class="col-12 d-flex justify-content-end">
                             <button class="btn btn-primary w-100" type="submit">Add Airline</button>
                         </div>
