@@ -37,9 +37,9 @@
 
                                         <td data-type="date">
 
-                                            <a asp-action="" asp-controller="" asp-route-id="@airlines.CreatedAt" onclick="return confirm('Are You Sure Edit this Airline?')"><i class="bi bi-pen" style="color:blue"></i></a>
+                                            <a asp-action="EditAirline" asp-controller="Admin" asp-route-id="@airlines.AirlineId"><i class="bi bi-pen" style="color:blue"></i></a>
 
-                                            <a asp-action="" asp-controller="" asp-route-id="@airlines.CreatedAt" onclick="return confirm('Are You Sure Delete this Airline?')"><i class="bi bi-trash" style="color:red"></i></a>
+                                            <a asp-action="DeleteAirline" asp-controller="Admin" asp-route-id="@airlines.AirlineId" onclick="return confirm('Are You Sure Delete this Airline?')"><i class="bi bi-trash" style="color:red"></i></a>
 
                                            
                                         </td>
