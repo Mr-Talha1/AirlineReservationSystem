@@ -273,6 +273,83 @@ namespace AirlineReservationSystem.Controllers
         }
 
 
+        //============================Cities========================
+        //Add_Cities
+        public IActionResult Add_Cities()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add_Cities(City city)
+        {
+            var citydata = _context.Cities.FirstOrDefault(u => u.CountryName == city.CountryName && u.CityName==city.CityName);
+            if (citydata != null)
+            {
+                TempData["cityError"] = "This Country Already Have this City";
+                return View(city);
+            }
+
+            if (!ModelState.IsValid)
+            {
+
+                return View("Add_Cities", city);
+            }
+            _context.Cities.Add(city);
+            _context.SaveChanges();
+            //return View("List_Of_Classes");
+            return RedirectToAction("List_Of_Cities", "Admin");
+        } 
+        
+        public IActionResult List_Of_Cities()
+        {
+            var CityData = _context.Cities.OrderByDescending(x => x.CityId).ToList();
+            return View(CityData);
+           
+        }
+
+        public IActionResult EditCity(int id)
+        {
+            var Citydata = _context.Cities.FirstOrDefault(x => x.CityId == id);
+            return View(Citydata);
+
+        }
+        [HttpPost]
+        public IActionResult EditCity(City city)
+        {
+            var citydata = _context.Cities.FirstOrDefault(x => x.CityId == city.CityId);
+            if (citydata == null)
+            {
+                return NotFound();
+            }
+            if (!ModelState.IsValid)
+            {
+                //ClassName
+                return RedirectToAction("EditCity", city);
+
+            }
+            var checkeCity = _context.Cities.FirstOrDefault(x => x.CountryName == city.CountryName && x.CityName == city.CityName);
+
+            var newCountryName = citydata.CountryName;
+            var newCityName = citydata.CityName;
+            if (checkeCity == null)
+            {
+                newCountryName = city.CountryName;
+                newCityName = city.CityName;
+
+            }
+            else
+            {
+                TempData["cityError"] = "This Country Already Have this City";
+                return View(city);
+            }
+            citydata.CountryName = newCountryName;
+            citydata.CityName = newCityName;
+
+            _context.SaveChanges();
+            return RedirectToAction("List_Of_Cities", "Admin");
+
+        }
         //============================Flights========================
 
         public IActionResult Add_Flight()
