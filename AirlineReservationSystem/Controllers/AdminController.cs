@@ -73,7 +73,9 @@ namespace AirlineReservationSystem.Controllers
             var airlinedata=_context.Airlines.FirstOrDefault(u=> u.AirlineName==airline.AirlineName);
             if (airlinedata != null)
             {
-                return View("Add_Airline", airline);
+                ModelState.AddModelError("AirlineName", "Airline already exists.");
+          
+                
             }
             if (!ModelState.IsValid)
             {
@@ -101,6 +103,120 @@ namespace AirlineReservationSystem.Controllers
            
         }
 
+
+        public IActionResult EditAirline(int id)
+        {
+           var airlinedata=_context.Airlines.FirstOrDefault(x=> x.AirlineId==id);
+            return View(airlinedata);
+
+        }
+        [HttpPost]
+        public IActionResult EditAirline(Airline airline)
+        {
+            var airlinedata = _context.Airlines.FirstOrDefault(x => x.AirlineId == airline.AirlineId);
+            if (airlinedata == null)
+            {
+                return NotFound();
+            }
+
+            var checkeAirline = _context.Airlines.FirstOrDefault(x => x.AirlineName == airline.AirlineName);
+
+            if (!ModelState.IsValid)
+            {
+
+                return RedirectToAction("EditAirline", airline);
+
+            }
+
+
+            if (airlinedata.AirlineName != airline.AirlineName)
+            {
+                // udpdate image file if you we a have new image file
+                string newfileName = airlinedata.ImagePath;
+                if (airline.AilrineImagePath != null)
+                {
+                    newfileName = DateTime.Now.ToString("yyyMMddHHmmssfff");
+                    newfileName += Path.GetExtension(airline.AilrineImagePath.FileName);
+                    string imageFullPath = environment.WebRootPath + "/image/" + newfileName;
+                    using (var stream = System.IO.File.Create(imageFullPath))
+                    {
+                        airline.AilrineImagePath.CopyTo(stream);
+                    }
+                    //delete old image file
+                  
+                        string oldImagePath = environment.WebRootPath + "/image/" + airlinedata.ImagePath;
+                        System.IO.File.Delete(oldImagePath);
+                }
+
+                airlinedata.AirlineName = airline.AirlineName;
+
+                airlinedata.ImagePath = newfileName;
+                
+
+                _context.SaveChanges();
+                return RedirectToAction("List_Of_Airlines", "Admin");
+            }
+
+
+
+
+
+
+            if (airlinedata.AirlineName == airline.AirlineName)
+            {
+                // udpdate image file if you we a have new image file
+                string newfileName = airlinedata.ImagePath;
+                if (airline.AilrineImagePath != null)
+                {
+                    newfileName = DateTime.Now.ToString("yyyMMddHHmmssfff");
+                    newfileName += Path.GetExtension(airline.AilrineImagePath.FileName);
+                    string imageFullPath = environment.WebRootPath + "/image/" + newfileName;
+                    using (var stream = System.IO.File.Create(imageFullPath))
+                    {
+                        airline.AilrineImagePath.CopyTo(stream);
+                    }
+                    //delete old image file
+
+                    string oldImagePath = environment.WebRootPath + "/image/" + airlinedata.ImagePath;
+                    System.IO.File.Delete(oldImagePath);
+                }
+
+                airlinedata.AirlineName = airline.AirlineName;
+
+                airlinedata.ImagePath = newfileName;
+
+
+                _context.SaveChanges();
+                return RedirectToAction("List_Of_Airlines", "Admin");
+            }
+
+
+
+
+
+
+
+
+            //if (checkeAirline == null)
+            //{
+            //    //ModelState.AddModelError("error", "Airline already exists.");
+            //    return RedirectToAction("EditAirline");
+            //}
+
+
+
+
+
+
+            return View();
+
+        }
+        public IActionResult DeleteAirline()
+        {
+           
+            return View();
+
+        }
 
 
         //============================Flights========================
