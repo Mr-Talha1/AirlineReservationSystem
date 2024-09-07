@@ -40,6 +40,27 @@ namespace AirlineReservationSystem.Controllers
             return RedirectToAction("List_Of_User", "Admin");
 
         }
+
+
+
+        //============================Classes========================
+
+        public IActionResult Add_Class()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Add_Class(Class Class)
+        {
+           return View(Class);
+        }
+        public IActionResult List_Of_Classes()
+        {
+            var classData = _context.Classes.OrderByDescending(c => c.ClassId).ToList();
+            return View(classData);
+        }
+
+
         //============================Airline========================
 
         public IActionResult Add_Airline()
@@ -74,6 +95,7 @@ namespace AirlineReservationSystem.Controllers
         }
         public IActionResult List_Of_Airlines()
         {
+            
             var airlinedata = _context.Airlines.OrderByDescending(x => x.AirlineId).ToList();
             return View(airlinedata);
            
@@ -89,7 +111,8 @@ namespace AirlineReservationSystem.Controllers
         }
         public IActionResult List_Of_Flighs()
         {
-            return View();
+            var userdata = _context.Users.OrderByDescending(x => x.UserId).ToList();
+            return View(userdata);
         }
 
         public IActionResult List_Of_Cancel_Flights()

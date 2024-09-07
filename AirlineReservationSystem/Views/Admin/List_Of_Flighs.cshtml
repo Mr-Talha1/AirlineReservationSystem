@@ -1,4 +1,59 @@
-﻿@{
+﻿@model List<AirlineReservationSystem.Models.User>
+@* @model List<User> *@
+@{
     Layout = "_AdminLayout";
 }
-list of flights
+
+<div class="pagetitle">
+    <h1>Users</h1>
+</div><!-- End Page Title -->
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">List Of Users</h5>
+
+                    <!-- Table with stripped rows -->
+                    <div class="table-responsive">
+                        <table class=" datatable table table-hover">
+                            <thead>
+                                </tr>
+                            <th>Image</th>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Phone Number</th>
+                            <th>Age</th>
+                            <th>Gander</th>
+                            <th>SkyMiles</th>
+                            <th data-type="date" data-format="YYYY/DD/MM">Register Date</th>
+                            <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var users in Model)
+                                {
+                                    <tr>
+                                        <td><img src="~/image/@users.ImagePath" alt="Alternate Text" width="80px" /></td>
+                                        <td>@users.Username</td>
+                                        <td>@users.Email</td>
+                                        <td>@users.Address</td>
+                                        <td>@users.PhoneNumber</td>
+                                        <td>@users.Age</td>
+                                        <td>@users.Gender</td>
+                                        <td>@users.SkyMiles</td>
+                                        <td data-type="date" data-format="YYYY/DD/MM">@users.CreatedAt</td>
+                                        <td data-type="date"><a asp-action="DeleteUser" asp-controller="Admin" asp-route-id="@users.UserId" onclick="return confirm('Are You Sure Delete this User?')"><i class="bi bi-trash" style="color:red"></i></a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- End Table with stripped rows -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
