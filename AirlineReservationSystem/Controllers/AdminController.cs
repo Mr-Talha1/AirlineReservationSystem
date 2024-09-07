@@ -149,7 +149,7 @@ namespace AirlineReservationSystem.Controllers
             airline.ImagePath = newfileName;
             _context.Airlines.Add(airline);
             _context.SaveChanges();
-            return View();
+            return RedirectToAction("List_Of_Airlines", "Admin");
         }
         public IActionResult List_Of_Airlines()
         {
