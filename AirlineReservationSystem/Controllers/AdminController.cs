@@ -55,7 +55,9 @@ namespace AirlineReservationSystem.Controllers
             var airlinedata = _context.Classes.FirstOrDefault(u => u.ClassName == Class.ClassName);
             if (airlinedata != null)
             {
-                ModelState.AddModelError("ClassName", "Airline already exist.");
+                TempData["ClassError"] = "Class already exist";
+                return View(Class);
+                //ModelState.AddModelError("ClassName", "Class already exist.");
 }
 
             if (!ModelState.IsValid)
@@ -105,6 +107,11 @@ namespace AirlineReservationSystem.Controllers
                 newclassName = clas.ClassName;
                
             }
+            else
+            {
+                TempData["ClassError"] = "Class already exist";
+               return View(clas);
+            }
             Classedata.ClassName = newclassName;
             _context.SaveChanges();
             return RedirectToAction("List_Of_Classes", "Admin");
@@ -123,7 +130,8 @@ namespace AirlineReservationSystem.Controllers
             var airlinedata=_context.Airlines.FirstOrDefault(u=> u.AirlineName==airline.AirlineName);
             if (airlinedata != null)
             {
-                ModelState.AddModelError("AirlineName", "Airline already exists.");
+                TempData["airlineError"] = "airline already exist";
+                return View(airline);
             }
             if (!ModelState.IsValid)
             {
@@ -177,13 +185,14 @@ namespace AirlineReservationSystem.Controllers
             }
 
 
-            if (airlinedata.AirlineName != airline.AirlineName)
-            {
+            //if (airlinedata.AirlineName != airline.AirlineName)
+            //{
+
                 // udpdate image file if you we a have new image file
                 string newfileName = airlinedata.ImagePath;
 
                 // udpdate ArilineName  if you we a have new ArilineName
-                string newArilineName = airlinedata.AirlineName;
+                       string newArilineName = airlinedata.AirlineName;
 
                 if (airline.AilrineImagePath != null)
                 {
@@ -204,67 +213,56 @@ namespace AirlineReservationSystem.Controllers
                     newArilineName = airline.AirlineName;
                 }
 
-                airlinedata.AirlineName = newArilineName;
-
-                airlinedata.ImagePath = newfileName;
-                
-
-                _context.SaveChanges();
-                return RedirectToAction("List_Of_Airlines", "Admin");
-            }
-
-
-
-
-
-
-            if (airlinedata.AirlineName == airline.AirlineName)
+            else
             {
-                // udpdate image file if you we a have new image file
-                string newfileName = airlinedata.ImagePath;
-                if (airline.AilrineImagePath != null)
-                {
-                    newfileName = DateTime.Now.ToString("yyyMMddHHmmssfff");
-                    newfileName += Path.GetExtension(airline.AilrineImagePath.FileName);
-                    string imageFullPath = environment.WebRootPath + "/image/" + newfileName;
-                    using (var stream = System.IO.File.Create(imageFullPath))
-                    {
-                        airline.AilrineImagePath.CopyTo(stream);
-                    }
-                    //delete old image file
+                TempData["AilineName"] = airlinedata.AirlineName;
+                TempData["AilineError"] = "Ailine Name don't Update already exist";
+            }
 
-                    string oldImagePath = environment.WebRootPath + "/image/" + airlinedata.ImagePath;
-                    System.IO.File.Delete(oldImagePath);
-                }
-
-                //airlinedata.AirlineName = airline.AirlineName;
+            airlinedata.AirlineName = newArilineName;
 
                 airlinedata.ImagePath = newfileName;
 
-
+               
                 _context.SaveChanges();
                 return RedirectToAction("List_Of_Airlines", "Admin");
-            }
-
-
-
-
-
-
-
-
-            //if (checkeAirline == null)
-            //{
-            //    //ModelState.AddModelError("error", "Airline already exists.");
-            //    return RedirectToAction("EditAirline");
             //}
 
 
 
 
+            //if (airlinedata.AirlineName == airline.AirlineName)
+            //{
+            //    // udpdate image file if you we a have new image file
+            //    string newfileName = airlinedata.ImagePath;
+            //    if (airline.AilrineImagePath != null)
+            //    {
+            //        newfileName = DateTime.Now.ToString("yyyMMddHHmmssfff");
+            //        newfileName += Path.GetExtension(airline.AilrineImagePath.FileName);
+            //        string imageFullPath = environment.WebRootPath + "/image/" + newfileName;
+            //        using (var stream = System.IO.File.Create(imageFullPath))
+            //        {
+            //            airline.AilrineImagePath.CopyTo(stream);
+            //        }
+            //        //delete old image file
+
+            //        string oldImagePath = environment.WebRootPath + "/image/" + airlinedata.ImagePath;
+            //        System.IO.File.Delete(oldImagePath);
+            //    }
+
+            //    //airlinedata.AirlineName = airline.AirlineName;
+
+            //    airlinedata.ImagePath = newfileName;
 
 
-            return View();
+            //    _context.SaveChanges();
+            //    return RedirectToAction("List_Of_Airlines", "Admin");
+            //}
+
+
+
+
+            //return View();
 
         }
         public IActionResult DeleteAirline()
