@@ -1,5 +1,4 @@
 ﻿@model List<AirlineReservationSystem.Models.Airline>
-@* @model List<Airline> *@
 @{
     Layout = "_AdminLayout";
 }
@@ -17,14 +16,14 @@
 
                     <!-- Table with stripped rows -->
                     <div class="table-responsive">
-                        <table class="datatable table table-hover">
+                        <table id="airlinesTable" class="table table-hover">
                             <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Airline Name</th>
+                                    <th data-type="date" data-format="YYYY/DD/MM">Created Date</th>
+                                    <th>Action</th>
                                 </tr>
-                            <th>Image</th>
-                            <th>Airline Name</th>
-                            <th data-type="date" data-format="YYYY/DD/MM">Created Date</th>
-                            <th>Action</th>
-                            </tr>
                             </thead>
                             <tbody>
                                 @foreach (var airlines in Model)
@@ -32,16 +31,14 @@
                                     <tr>
                                         <td><img src="~/image/@airlines.ImagePath" alt="Alternate Text" width="70px" /></td>
                                         <td>@airlines.AirlineName</td>
-
                                         <td data-type="date" data-format="YYYY/DD/MM">@airlines.CreatedAt</td>
-
                                         <td data-type="date">
-
-                                            <a asp-action="EditAirline" asp-controller="Admin" asp-route-id="@airlines.AirlineId"><i class="bi bi-pen" style="color:blue"></i></a>
-
-                                            <a asp-action="DeleteAirline" asp-controller="Admin" asp-route-id="@airlines.AirlineId" onclick="return confirm('Are You Sure Delete this Airline?')"><i class="bi bi-trash" style="color:red"></i></a>
-
-                                           
+                                            <a asp-action="EditAirline" asp-controller="Admin" asp-route-id="@airlines.AirlineId">
+                                                <i class="bi bi-pen" style="color:blue"></i>
+                                            </a>
+                                            <a asp-action="DeleteAirline" asp-controller="Admin" asp-route-id="@airlines.AirlineId" onclick="return confirm('Are You Sure Delete this Airline?')">
+                                                <i class="bi bi-trash" style="color:red"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }
@@ -54,3 +51,28 @@
         </div>
     </div>
 </section>
+
+<!-- jQuery and DataTables CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
+
+
+<script>
+    $(document).ready(function () {
+        $('#airlinesTable').DataTable({
+            "paging": true,       // Enable pagination
+            "ordering": false,     // Disable column-based sorting
+            "info": true,         // Show table info (e.g., "Showing 1 to 10 of 50 entries")
+            "searching": true,    // Enable search
+            "columnDefs": [
+                { "orderable": false, "targets": 3 } // Disable sorting for the Action column
+            ],
+            "language": {
+                "search": "Search Airline:", // Customize search label
+                "lengthMenu": "_MENU_ entries per page",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries"
+            }
+        });
+    });
+</script>
