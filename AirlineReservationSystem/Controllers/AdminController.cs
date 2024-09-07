@@ -52,21 +52,71 @@ namespace AirlineReservationSystem.Controllers
         [HttpPost]
         public IActionResult Add_Class(Class Class)
         {
-           return View(Class);
+            var airlinedata = _context.Classes.FirstOrDefault(u => u.ClassName == Class.ClassName);
+            if (airlinedata != null)
+            {
+                ModelState.AddModelError("ClassName", "Airline already exist.");
+}
+
+            if (!ModelState.IsValid)
+            {
+
+                return View("Add_Class", Class);
+            }
+            _context.Classes.Add(Class);
+            _context.SaveChanges();
+            //return View("List_Of_Classes");
+            return RedirectToAction("List_Of_Classes", "Admin");
+
+
         }
         public IActionResult List_Of_Classes()
         {
-            var classData = _context.Classes.OrderByDescending(c => c.ClassId).ToList();
+            var classData=_context.Classes.OrderByDescending(x=> x.ClassId).ToList();
             return View(classData);
         }
 
+        public IActionResult EditClass(int id)
+        {
+            var Classdata = _context.Classes.FirstOrDefault(x => x.ClassId == id);
+            return View(Classdata);
 
-        //============================Airline========================
+        }
 
-        public IActionResult Add_Airline()
+        [HttpPost]
+        public IActionResult EditClass(Class clas)
+        {
+            var Classedata = _context.Classes.FirstOrDefault(x => x.ClassId == clas.ClassId);
+            if (Classedata == null)
+            {
+                return NotFound();
+            }
+            if (!ModelState.IsValid)
+            {
+                //ClassName
+                return RedirectToAction("EditClass", clas);
+
+            }
+            var checkeClass = _context.Classes.FirstOrDefault(x => x.ClassName == clas.ClassName);
+
+            var newclassName = Classedata.ClassName;
+            if(checkeClass == null)
+            {
+                newclassName = clas.ClassName;
+               
+            }
+            Classedata.ClassName = newclassName;
+            _context.SaveChanges();
+            return RedirectToAction("List_Of_Classes", "Admin");
+
+        }
+            //============================Airline========================
+
+            public IActionResult Add_Airline()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Add_Airline(Airline airline)
         {
@@ -74,8 +124,6 @@ namespace AirlineReservationSystem.Controllers
             if (airlinedata != null)
             {
                 ModelState.AddModelError("AirlineName", "Airline already exists.");
-          
-                
             }
             if (!ModelState.IsValid)
             {
@@ -133,6 +181,10 @@ namespace AirlineReservationSystem.Controllers
             {
                 // udpdate image file if you we a have new image file
                 string newfileName = airlinedata.ImagePath;
+
+                // udpdate ArilineName  if you we a have new ArilineName
+                string newArilineName = airlinedata.AirlineName;
+
                 if (airline.AilrineImagePath != null)
                 {
                     newfileName = DateTime.Now.ToString("yyyMMddHHmmssfff");
@@ -147,8 +199,12 @@ namespace AirlineReservationSystem.Controllers
                         string oldImagePath = environment.WebRootPath + "/image/" + airlinedata.ImagePath;
                         System.IO.File.Delete(oldImagePath);
                 }
+                if (checkeAirline == null)
+                {
+                    newArilineName = airline.AirlineName;
+                }
 
-                airlinedata.AirlineName = airline.AirlineName;
+                airlinedata.AirlineName = newArilineName;
 
                 airlinedata.ImagePath = newfileName;
                 
@@ -181,7 +237,7 @@ namespace AirlineReservationSystem.Controllers
                     System.IO.File.Delete(oldImagePath);
                 }
 
-                airlinedata.AirlineName = airline.AirlineName;
+                //airlinedata.AirlineName = airline.AirlineName;
 
                 airlinedata.ImagePath = newfileName;
 
