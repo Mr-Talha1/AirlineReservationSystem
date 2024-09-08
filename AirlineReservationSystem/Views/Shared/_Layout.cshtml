@@ -109,40 +109,7 @@
                                         </select>
                                     </div>
                                 </div>
-                              @*   <div class="header-right-action">
-                                    <div class="select-contain select--contain w-auto">
-                                        <select class="select-contain-select">
-                                            <option value="1">AED</option>
-                                            <option value="2">AUD</option>
-                                            <option value="3">BRL</option>
-                                            <option value="4">CAD</option>
-                                            <option value="5">CHF</option>
-                                            <option value="6">CNY</option>
-                                            <option value="7">EUR</option>
-                                            <option value="8">GBP</option>
-                                            <option value="9">HKD</option>
-                                            <option value="10">IDR</option>
-                                            <option value="11">INR</option>
-                                            <option value="12">JPY</option>
-                                            <option value="13">KRW</option>
-                                            <option value="14">MYR</option>
-                                            <option value="15">NZD</option>
-                                            <option value="16">PHP</option>
-                                            <option value="17">PLN</option>
-                                            <option value="18">RUB</option>
-                                            <option value="19">SAR</option>
-                                            <option value="20">SGD</option>
-                                            <option value="21">THB</option>
-                                            <option value="22">TRY</option>
-                                            <option value="23">TWD</option>
-                                            <option value="24" selected>USD</option>
-                                            <option value="25">VND</option>
-                                            <option value="26">MXN</option>
-                                            <option value="27">ARS</option>
-                                            <option value="28">INR</option>
-                                        </select>
-                                    </div>
-                                </div> *@
+                             
 
                                 
 
@@ -687,10 +654,38 @@
                             </h5>
                             <p class="font-size-14">Hello! Welcome Create a New Account</p>
                         </div>
-                        <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close">
+                        
+                         <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" class="la la-close"></span>
                         </button>
                     </div>
+
+
+               
+                      @if (TempData["EmailError"] != null)
+                    {
+                         @* <div class="my-3"> *@
+                    <div class="alert alert-danger d-flex align-items-center gap-3" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+                            @TempData["EmailError"]
+                    </div>
+                       @*  </div> *@
+                     }
+                    
+
+                   
+                        @if (TempData["ModelStateInvalid"] != null)
+                         {
+                    
+                            <div class="alert alert-danger d-flex align-items-center gap-3" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+                                @TempData["ModelStateInvalid"]
+                            </div>
+                       
+
+                        }
+                    
+
                     <div class="modal-body">
                         <div class="contact-form-action">
                             <form method="post" asp-action="SignUp" asp-controller="Account">
@@ -824,6 +819,23 @@
                             <span aria-hidden="true" class="la la-close"></span>
                         </button>
                     </div>
+                    @if (TempData["InvalidError"] != null)
+                    {
+                        <div class="alert alert-danger d-flex align-items-center gap-3" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+                            @TempData["InvalidError"]
+                        </div>
+                    }
+                    @if (TempData["ModelStateInvalid"] != null)
+                    {
+
+                        <div class="alert alert-danger d-flex align-items-center gap-3" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+                            @TempData["ModelStateInvalid"]
+                        </div>
+
+
+                    }
                     <div class="modal-body">
                         <div class="contact-form-action">
                             <form method="post" asp-action="SignIn" asp-controller="Account">
@@ -845,15 +857,7 @@
                                         <input class="form-control" type="text" name="Password" placeholder="Type your password" />
                                     </div>
                                     <span asp-validation-for="Password" class="text-danger"></span>
-                                   @*  <div class="d-flex align-items-center justify-content-between">
-                                        <div class="custom-checkbox mb-0">
-                                            <input type="checkbox" class="form-check-input" id="rememberchb" />
-                                            <label for="rememberchb">Remember me</label>
-                                        </div>
-                                        <p class="forgot-password">
-                                            <a href="recover.html">Forgot Password?</a>
-                                        </p>
-                                    </div> *@
+                                   
                                 </div>
                                 <!-- end input-box -->
                                 <div class="btn-box pt-3 pb-4">
@@ -905,12 +909,25 @@
     <script src="~/js/jquery.ripples-min.js"></script>
     <script src="~/js/quantity-input.js"></script>
     <script src="~/js/main.js"></script>
+    @if (TempData["RegAccountError"] != null)
+    {
     <script>
         $(document).ready(function () {
-            var myModal = new bootstrap.Modal(document.getElementById('loginPopupForm'));
+            var myModal = new bootstrap.Modal(document.getElementById("signupPopupForm"));
             myModal.show();
         });
     </script>
-
+    } 
+    
+    @if (TempData["SingAccountError"] != null)
+    {
+    <script>
+        $(document).ready(function () {
+                var myModal = new bootstrap.Modal(document.getElementById("loginPopupForm"));
+            myModal.show();
+        });
+    </script>
+    }
+   
 </body>
 </html>

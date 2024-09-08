@@ -1,5 +1,32 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
+}
+
+
+@if (TempData["RegisterAccount"] != null)
+{
+    TempData["EmailError"] = "Email Already Exist";
+    TempData["RegAccountError"] = "signupPopupForm";
+
+}
+
+@if (TempData["SingInAccount"] != null)
+{
+    TempData["InvalidError"] = "Paswword and Email don't Match";
+    TempData["SingAccountError"] = "loginPopupForm";
+}
+
+@if (TempData["Regmodelstate"] != null)
+{
+    TempData["ModelStateInvalid"] = "Please Fill All and Correct Values in Inputs";
+    TempData["RegAccountError"] = "signupPopupForm";
+}
+
+@if (TempData["singmodelstate"] != null)
+{
+    TempData["ModelStateInvalid"] = "Please Fill All and Correct Values in Inputs";
+    TempData["SingAccountError"] = "signupPopupForm";
 }
 
 <!-- ================================

@@ -23,7 +23,8 @@ namespace AirlineReservationSystem.Controllers
             {
                 if (await _context.Users.AnyAsync(u => u.Email == user.Email))
                 {
-                    return RedirectToAction("Index", "Home");
+                    TempData["RegisterAccount"] = "signupPopupForm";
+                    return RedirectToAction("Index", "Home", user);
                 }
 
                 user.ImagePath = "user_placeholder.jpg";
@@ -33,6 +34,11 @@ namespace AirlineReservationSystem.Controllers
 
                 await SignInUser(user);//
                 return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                //TempData["RegisterAccount"] = "signupPopupForm";
+                TempData["Regmodelstate"] = "modelstate";
             }
 
             return RedirectToAction("Index", "Home");
@@ -48,15 +54,27 @@ namespace AirlineReservationSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(string email, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
-
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                await SignInUser(user);
-                return RedirectToAction("Index", "Home");
+
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+
+                if (user != null)
+                {
+                    await SignInUser(user);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+
+                    TempData["SingInAccount"] = "signupPopupForm";
+                }
+
             }
-
-
+            else
+            {
+                TempData["singmodelstate"] = "modelstate";
+            }
             return RedirectToAction("Index", "Home");
         }
 
