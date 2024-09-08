@@ -185,10 +185,7 @@ namespace AirlineReservationSystem.Controllers
             }
 
 
-            //if (airlinedata.AirlineName != airline.AirlineName)
-            //{
-
-                // udpdate image file if you we a have new image file
+          
                 string newfileName = airlinedata.ImagePath;
 
                 // udpdate ArilineName  if you we a have new ArilineName
@@ -226,52 +223,14 @@ namespace AirlineReservationSystem.Controllers
                
                 _context.SaveChanges();
                 return RedirectToAction("List_Of_Airlines", "Admin");
-            //}
-
-
-
-
-            //if (airlinedata.AirlineName == airline.AirlineName)
-            //{
-            //    // udpdate image file if you we a have new image file
-            //    string newfileName = airlinedata.ImagePath;
-            //    if (airline.AilrineImagePath != null)
-            //    {
-            //        newfileName = DateTime.Now.ToString("yyyMMddHHmmssfff");
-            //        newfileName += Path.GetExtension(airline.AilrineImagePath.FileName);
-            //        string imageFullPath = environment.WebRootPath + "/image/" + newfileName;
-            //        using (var stream = System.IO.File.Create(imageFullPath))
-            //        {
-            //            airline.AilrineImagePath.CopyTo(stream);
-            //        }
-            //        //delete old image file
-
-            //        string oldImagePath = environment.WebRootPath + "/image/" + airlinedata.ImagePath;
-            //        System.IO.File.Delete(oldImagePath);
-            //    }
-
-            //    //airlinedata.AirlineName = airline.AirlineName;
-
-            //    airlinedata.ImagePath = newfileName;
-
-
-            //    _context.SaveChanges();
-            //    return RedirectToAction("List_Of_Airlines", "Admin");
-            //}
-
-
-
-
-            //return View();
 
         }
-        public IActionResult DeleteAirline()
+        
+        public IActionResult DeleteAirline(int id)
         {
-           
             return View();
 
         }
-
 
         //============================Cities========================
         //Add_Cities
@@ -347,6 +306,20 @@ namespace AirlineReservationSystem.Controllers
             citydata.CityName = newCityName;
 
             _context.SaveChanges();
+            return RedirectToAction("List_Of_Cities", "Admin");
+
+        }
+
+
+        public IActionResult DeleteCity(int id)
+        {
+            var city_data = _context.Cities.Find(id);
+            if (city_data == null)
+            {
+                return NotFound();
+            }
+            _context.Cities.Remove(city_data);
+            _context.SaveChanges(true);
             return RedirectToAction("List_Of_Cities", "Admin");
 
         }

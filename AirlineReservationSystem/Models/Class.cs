@@ -10,4 +10,6 @@ public partial class Class
     public string ClassName { get; set; } = null!;
 
     public DateTime? CreatedAt { get; set; }
+
+    public virtual ICollection<Flight> Flights { get; set; } = new List<Flight>();
 }

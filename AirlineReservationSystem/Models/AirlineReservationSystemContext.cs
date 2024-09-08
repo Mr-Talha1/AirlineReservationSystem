@@ -21,6 +21,8 @@ public partial class AirlineReservationSystemContext : DbContext
 
     public virtual DbSet<Class> Classes { get; set; }
 
+    public virtual DbSet<Flight> Flights { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -63,6 +65,44 @@ public partial class AirlineReservationSystemContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+        });
+
+        modelBuilder.Entity<Flight>(entity =>
+        {
+            entity.HasKey(e => e.FlightId).HasName("PK__Flights__8A9E148E586213BF");
+
+            entity.HasIndex(e => e.FlightNumber, "UQ__Flights__2EAE6F5017F0FEE0").IsUnique();
+
+            entity.Property(e => e.FlightId).HasColumnName("FlightID");
+            entity.Property(e => e.AirlineId).HasColumnName("AirlineID");
+            entity.Property(e => e.ArrivalTime).HasColumnType("datetime");
+            entity.Property(e => e.AvailableSeats).HasDefaultValue(0);
+            entity.Property(e => e.ClassId).HasColumnName("ClassID");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.DepartureTime).HasColumnType("datetime");
+            entity.Property(e => e.DestinationCityId).HasColumnName("DestinationCityID");
+            entity.Property(e => e.FlightNumber).HasMaxLength(20);
+            entity.Property(e => e.OriginCityId).HasColumnName("OriginCityID");
+            entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
+
+            entity.HasOne(d => d.Airline).WithMany(p => p.Flights)
+                .HasForeignKey(d => d.AirlineId)
+                .HasConstraintName("FK__Flights__Airline__29221CFB");
+
+            entity.HasOne(d => d.Class).WithMany(p => p.Flights)
+                .HasForeignKey(d => d.ClassId)
+                .HasConstraintName("FK__Flights__ClassID__2BFE89A6");
+
+            entity.HasOne(d => d.DestinationCity).WithMany(p => p.FlightDestinationCities)
+                .HasForeignKey(d => d.DestinationCityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Flights__Destina__2B0A656D");
+
+            entity.HasOne(d => d.OriginCity).WithMany(p => p.FlightOriginCities)
+                .HasForeignKey(d => d.OriginCityId)
+                .HasConstraintName("FK__Flights__OriginC__2A164134");
         });
 
         modelBuilder.Entity<User>(entity =>
