@@ -31,4 +31,5 @@ public partial class User
     public DateTime? UpdatedAt { get; set; }
     [NotMapped]
     public IFormFile? UserImagePath { get; set; }
+    
 }

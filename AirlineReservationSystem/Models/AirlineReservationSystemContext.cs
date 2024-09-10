@@ -69,9 +69,9 @@ public partial class AirlineReservationSystemContext : DbContext
 
         modelBuilder.Entity<Flight>(entity =>
         {
-            entity.HasKey(e => e.FlightId).HasName("PK__Flights__8A9E148E586213BF");
+            entity.HasKey(e => e.FlightId).HasName("PK__Flights__8A9E148E313D268A");
 
-            entity.HasIndex(e => e.FlightNumber, "UQ__Flights__2EAE6F5017F0FEE0").IsUnique();
+            entity.HasIndex(e => e.FlightNumber, "UQ__Flights__2EAE6F50D4D56E7C").IsUnique();
 
             entity.Property(e => e.FlightId).HasColumnName("FlightID");
             entity.Property(e => e.AirlineId).HasColumnName("AirlineID");
@@ -89,20 +89,19 @@ public partial class AirlineReservationSystemContext : DbContext
 
             entity.HasOne(d => d.Airline).WithMany(p => p.Flights)
                 .HasForeignKey(d => d.AirlineId)
-                .HasConstraintName("FK__Flights__Airline__29221CFB");
+                .HasConstraintName("FK__Flights__Airline__339FAB6E");
 
             entity.HasOne(d => d.Class).WithMany(p => p.Flights)
                 .HasForeignKey(d => d.ClassId)
-                .HasConstraintName("FK__Flights__ClassID__2BFE89A6");
+                .HasConstraintName("FK__Flights__ClassID__367C1819");
 
             entity.HasOne(d => d.DestinationCity).WithMany(p => p.FlightDestinationCities)
                 .HasForeignKey(d => d.DestinationCityId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Flights__Destina__2B0A656D");
+                .HasConstraintName("FK__Flights__Destina__3587F3E0");
 
             entity.HasOne(d => d.OriginCity).WithMany(p => p.FlightOriginCities)
                 .HasForeignKey(d => d.OriginCityId)
-                .HasConstraintName("FK__Flights__OriginC__2A164134");
+                .HasConstraintName("FK__Flights__OriginC__3493CFA7");
         });
 
         modelBuilder.Entity<User>(entity =>
