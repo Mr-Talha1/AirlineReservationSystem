@@ -116,11 +116,65 @@
                                         </select>
                                     </div>
                                 </div>
-                             
+
+
+
+                                @if (User.IsInRole("Admin"))
+                                {
+
+                                    <div class="notification-item">
+                                        <div class="dropdown">
+                                            <a href="#" class="dropdown-toggle" id="userDropdownMenu"
+                                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-sm flex-shrink-0 me-2">
+                                                        <img src="~/image/user_placeholder.jpg" alt=" s" />
+                                                    </div>
+                                                    <span class="font-size-14 font-weight-bold" style="color: black;">@User.Identity.Name <i class="la la-angle-down"></i></span>
+                                                </div>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-reveal dropdown-menu-md dropdown-menu-right">
+                                                <div class="dropdown-item drop-reveal-header user-reveal-header">
+                                                    <h6 class="title text-uppercase">Welcome!</h6>
+                                                </div>
+                                                <div class="list-group drop-reveal-list user-drop-reveal-list">
+                                                    <a asp-action="Index" asp-controller="Dashboard"
+                                                       class="list-group-item list-group-item-action">
+                                                        <div class="msg-body">
+                                                            <div class="msg-content">
+                                                                <h3 class="title" asp-action="Index" asp-controller="Admin">
+                                                                    <i class="la la-user me-2"></i>Dashboard
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <!-- end msg-body -->
+                                                    </a>
+
+
+
+
+
+                                                    <div class="section-block"></div>
+                                                    <a asp-action="Logout" asp-controller="Account" class="list-group-item list-group-item-action">
+                                                        <div class="msg-body">
+                                                            <div class="msg-content">
+                                                                <h3 class="title">
+                                                                    <i class="la la-power-off me-2"></i>Logout
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <!-- end msg-body -->
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <!-- end dropdown-menu -->
+                                        </div>
+                                    </div>
+                                }
 
                                 
 
-                                @if (User.Identity.IsAuthenticated)
+                                @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
                                 {
                                     <div class="notification-item">
                                         <div class="dropdown">
@@ -192,7 +246,7 @@
                                     </div>
 
                                 }
-                                else
+                                @if (!User.Identity.IsAuthenticated)
                                 {
                                     <div class="header-right-action">
                                         <a href="#" class="theme-btn theme-btn-small theme-btn-transparent me-1" data-bs-toggle="modal"
@@ -201,6 +255,7 @@
                                            data-bs-target="#loginPopupForm">Login</a>
                                     </div>
                                 }
+                               
                             </div>
                         </div>
                     </div>
