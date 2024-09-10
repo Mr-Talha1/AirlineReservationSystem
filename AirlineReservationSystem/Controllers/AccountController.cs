@@ -54,7 +54,7 @@ namespace AirlineReservationSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(string email, string password)
         {
-            if(email=="abc@gamil.com" && password == "123")
+            if(email=="admin@gmail.com" && password == "admin123")
             {
                 var adminEmail = email;
                 await SignInAdmin(adminEmail);
