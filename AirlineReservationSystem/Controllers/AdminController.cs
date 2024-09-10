@@ -369,19 +369,6 @@ namespace AirlineReservationSystem.Controllers
         }
 
 
-        //public IActionResult DeleteCity(int id)
-        //{
-        //    var city_data = _context.Cities.Find(id);
-        //    if (city_data == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    _context.Cities.Remove(city_data);
-        //    _context.SaveChanges(true);
-        //    return RedirectToAction("List_Of_Cities", "Admin");
-
-        //}
-
         public async Task<IActionResult> DeleteCity(int id)
         {
             // Find the city to delete

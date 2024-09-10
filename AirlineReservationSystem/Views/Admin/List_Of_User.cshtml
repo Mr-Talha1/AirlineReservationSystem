@@ -43,7 +43,7 @@
                                         <td>@users.Age</td>
                                         <td>@users.Gender</td>
                                         <td>@users.SkyMiles</td>
-                                        <td data-type="date" data-format="YYYY/DD/MM">@users.CreatedAt</td>
+                                        <td data-type="date" data-format="YYYY/DD/MM">@users.CreatedAt?.ToString("dd/MMMM/yyyy")</td>
                                         <td data-type="date"><a asp-action="DeleteUser" asp-controller="Admin" asp-route-id="@users.UserId" onclick="return confirm('Are You Sure Delete this User?')"><i class="bi bi-trash" style="color:red"></i></a></td>
                         </tr>
                                 }
