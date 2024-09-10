@@ -9,7 +9,7 @@ public partial class Flight
 
     public string FlightNumber { get; set; } = null!;
 
-    public int AirlineId { get; set; }
+    public int? AirlineId { get; set; }
 
     public int? OriginCityId { get; set; }
 
@@ -23,7 +23,7 @@ public partial class Flight
 
     public int? AvailableSeats { get; set; }
 
-    public int ClassId { get; set; }
+    public int? ClassId { get; set; }
 
     public int SkyMiles { get; set; }
 
@@ -33,9 +33,9 @@ public partial class Flight
 
     public DateTime? CreatedAt { get; set; }
 
-    public virtual Airline Airline { get; set; } = null!;
+    public virtual Airline? Airline { get; set; }
 
-    public virtual Class Class { get; set; } = null!;
+    public virtual Class? Class { get; set; }
 
     public virtual City? DestinationCity { get; set; }
 

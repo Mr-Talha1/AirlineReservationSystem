@@ -13,7 +13,11 @@ public partial class Airline
     public string AirlineName { get; set; } = null!;
 
     public DateTime? CreatedAt { get; set; }
+
     [NotMapped]
     public IFormFile? AilrineImagePath { get; set; }
+    
+
+   
     public virtual ICollection<Flight> Flights { get; set; } = new List<Flight>();
 }

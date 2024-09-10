@@ -63,8 +63,7 @@ namespace AirlineReservationSystem.Controllers
                 {
                     await SignInUser(user);
                     return RedirectToAction("Index", "Home");
-                }
-                else
+                }else
                 {
 
                     TempData["SingInAccount"] = "signupPopupForm";
@@ -81,11 +80,17 @@ namespace AirlineReservationSystem.Controllers
         private async Task SignInUser(User user)
         {
             var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Name, user.Username),
+        new Claim(ClaimTypes.Email, user.Email),
+        new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()) // Add User ID claim
+    };
+
+            // Check if the user is the admin
+            if (user.Email == "flynowadmin@gmail.com")
             {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()) // Add User ID claim
-            };
+                claims.Add(new Claim(ClaimTypes.Role, "Admin")); // Add Admin role claim
+            }
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
@@ -96,5 +101,6 @@ namespace AirlineReservationSystem.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
         }
+
     }
 }

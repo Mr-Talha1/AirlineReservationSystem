@@ -33,7 +33,7 @@ public partial class AirlineReservationSystemContext : DbContext
     {
         modelBuilder.Entity<Airline>(entity =>
         {
-            entity.HasKey(e => e.AirlineId).HasName("PK__Airlines__DC4582732DA8B322");
+            entity.HasKey(e => e.AirlineId).HasName("PK__Airlines__DC4582734630199F");
 
             entity.Property(e => e.AirlineId).HasColumnName("AirlineID");
             entity.Property(e => e.AirlineName).HasMaxLength(100);
@@ -44,7 +44,7 @@ public partial class AirlineReservationSystemContext : DbContext
 
         modelBuilder.Entity<City>(entity =>
         {
-            entity.HasKey(e => e.CityId).HasName("PK__Cities__F2D21A96245B25FD");
+            entity.HasKey(e => e.CityId).HasName("PK__Cities__F2D21A96F1E46D70");
 
             entity.Property(e => e.CityId).HasColumnName("CityID");
             entity.Property(e => e.CityName).HasMaxLength(100);
@@ -56,9 +56,9 @@ public partial class AirlineReservationSystemContext : DbContext
 
         modelBuilder.Entity<Class>(entity =>
         {
-            entity.HasKey(e => e.ClassId).HasName("PK__Classes__CB1927A0EFD2E939");
+            entity.HasKey(e => e.ClassId).HasName("PK__Classes__CB1927A098C39105");
 
-            entity.HasIndex(e => e.ClassName, "UQ__Classes__F8BF561B186AA87E").IsUnique();
+            entity.HasIndex(e => e.ClassName, "UQ__Classes__F8BF561B4437269A").IsUnique();
 
             entity.Property(e => e.ClassId).HasColumnName("ClassID");
             entity.Property(e => e.ClassName).HasMaxLength(50);
@@ -69,9 +69,9 @@ public partial class AirlineReservationSystemContext : DbContext
 
         modelBuilder.Entity<Flight>(entity =>
         {
-            entity.HasKey(e => e.FlightId).HasName("PK__Flights__8A9E148E313D268A");
+            entity.HasKey(e => e.FlightId).HasName("PK__Flights__8A9E148E648FE0F4");
 
-            entity.HasIndex(e => e.FlightNumber, "UQ__Flights__2EAE6F50D4D56E7C").IsUnique();
+            entity.HasIndex(e => e.FlightNumber, "UQ__Flights__2EAE6F50BDA4154D").IsUnique();
 
             entity.Property(e => e.FlightId).HasColumnName("FlightID");
             entity.Property(e => e.AirlineId).HasColumnName("AirlineID");
@@ -89,28 +89,30 @@ public partial class AirlineReservationSystemContext : DbContext
 
             entity.HasOne(d => d.Airline).WithMany(p => p.Flights)
                 .HasForeignKey(d => d.AirlineId)
-                .HasConstraintName("FK__Flights__Airline__339FAB6E");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK__Flights__Airline__37703C52");
 
             entity.HasOne(d => d.Class).WithMany(p => p.Flights)
                 .HasForeignKey(d => d.ClassId)
-                .HasConstraintName("FK__Flights__ClassID__367C1819");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK__Flights__ClassID__3A4CA8FD");
 
             entity.HasOne(d => d.DestinationCity).WithMany(p => p.FlightDestinationCities)
                 .HasForeignKey(d => d.DestinationCityId)
-                .HasConstraintName("FK__Flights__Destina__3587F3E0");
+                .HasConstraintName("FK__Flights__Destina__395884C4");
 
             entity.HasOne(d => d.OriginCity).WithMany(p => p.FlightOriginCities)
                 .HasForeignKey(d => d.OriginCityId)
-                .HasConstraintName("FK__Flights__OriginC__3493CFA7");
+                .HasConstraintName("FK__Flights__OriginC__3864608B");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCACB50C953E");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC9A83A0CC");
 
             entity.ToTable(tb => tb.HasTrigger("trg_UpdateTimestamp"));
 
-            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534A15B3592").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__A9D1053429C98DDA").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");

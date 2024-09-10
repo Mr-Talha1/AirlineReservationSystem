@@ -1,5 +1,6 @@
 ﻿using System;
 using AirlineReservationSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,8 +16,13 @@ namespace AirlineReservationSystem.Controllers
             this.environment = environment;
         }
         //============================dashboard========================
+        [Authorize]
         public IActionResult Index()
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var usercount = _context.Users.Count();
             return View(usercount);
         }
@@ -24,6 +30,10 @@ namespace AirlineReservationSystem.Controllers
         //============================Users========================
         public IActionResult List_Of_User()
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var userdata = _context.Users.OrderByDescending(x=> x.UserId).ToList();
             return View(userdata);
         }
@@ -51,6 +61,10 @@ namespace AirlineReservationSystem.Controllers
 
         public IActionResult Add_Class()
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         [HttpPost]
@@ -78,12 +92,20 @@ namespace AirlineReservationSystem.Controllers
         }
         public IActionResult List_Of_Classes()
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var classData=_context.Classes.OrderByDescending(x=> x.ClassId).ToList();
             return View(classData);
         }
 
         public IActionResult EditClass(int id)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var Classdata = _context.Classes.FirstOrDefault(x => x.ClassId == id);
             return View(Classdata);
 
@@ -139,6 +161,10 @@ namespace AirlineReservationSystem.Controllers
 
         public IActionResult Add_Airline()
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -171,7 +197,11 @@ namespace AirlineReservationSystem.Controllers
         }
         public IActionResult List_Of_Airlines()
         {
-            
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var airlinedata = _context.Airlines.OrderByDescending(x => x.AirlineId).ToList();
             return View(airlinedata);
            
