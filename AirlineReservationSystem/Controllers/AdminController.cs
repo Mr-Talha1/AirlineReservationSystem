@@ -279,7 +279,6 @@ namespace AirlineReservationSystem.Controllers
 
             if (!ModelState.IsValid)
             {
-
                 return View("Add_Cities", city);
             }
             _context.Cities.Add(city);
