@@ -29,7 +29,8 @@ namespace AirlineReservationSystem.Controllers
             ViewData["ImagePath"] = userdata.ImagePath;
             ViewData["UserName"] = userdata.Username;
             //var d = userdata.CreatedAt.ToString('MM/dd');
-            ViewData["CreatedAt"] = userdata.CreatedAt;
+
+            ViewData["CreatedAt"] = userdata.CreatedAt?.ToString("dd MMM yyyy");
             return View(userdata);
             
         }
@@ -50,7 +51,7 @@ namespace AirlineReservationSystem.Controllers
             ViewData["userId"] = userId;
             ViewData["ImagePath"] = userdata.ImagePath;
             ViewData["UserName"] = userdata.Username;
-            ViewData["CreatedAt"] = userdata.CreatedAt;
+            ViewData["CreatedAt"] = userdata.CreatedAt?.ToString("dd MMM yyyy");
             return View(userdata);
 
         }
@@ -67,7 +68,7 @@ namespace AirlineReservationSystem.Controllers
             ViewData["userId"] = userId;
             ViewData["ImagePath"] = userdata.ImagePath;
             ViewData["UserName"] = userdata.Username;
-            ViewData["CreatedAt"] = userdata.CreatedAt;
+            ViewData["CreatedAt"] = userdata.CreatedAt?.ToString("dd MMM yyyy");
             return View(userdata);
         }
         //=================================update user profile

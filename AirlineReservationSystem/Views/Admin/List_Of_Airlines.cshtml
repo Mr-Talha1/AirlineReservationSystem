@@ -37,7 +37,7 @@
                                     <tr>
                                         <td><img src="~/image/@airlines.ImagePath" alt="Alternate Text" width="70px" /></td>
                                         <td>@airlines.AirlineName</td>
-                                        <td data-type="date" data-format="YYYY/DD/MM">@airlines.CreatedAt</td>
+                                        <td data-type="date" data-format="YYYY/DD/MM">@airlines.CreatedAt?.ToString("dd/MMMM/yyyy")</td>
                                         <td data-type="date">
                                             <a asp-action="EditAirline" asp-controller="Admin" asp-route-id="@airlines.AirlineId">
                                                 <i class="bi bi-pen" style="color:blue"></i>

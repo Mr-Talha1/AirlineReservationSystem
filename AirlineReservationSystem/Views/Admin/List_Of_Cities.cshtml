@@ -36,7 +36,7 @@
                                     <tr>
                                         <td>@CityItem.CountryName</td>
                                         <td>@CityItem.CityName</td>
-                                        <td>@CityItem.CreatedAt?.ToString("yyyy/MM/dd")</td>
+                                        <td>@CityItem.CreatedAt?.ToString("dd/MMMM/yyyy")</td>
                                         <td>
                                             <a asp-action="EditCity" asp-controller="Admin" asp-route-id="@CityItem.CityId"><i class="bi bi-pen" style="color:blue"></i></a>
 
