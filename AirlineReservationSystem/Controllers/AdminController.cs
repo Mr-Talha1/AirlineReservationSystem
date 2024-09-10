@@ -311,32 +311,18 @@ namespace AirlineReservationSystem.Controllers
         }
 
 
-        public async Task<IActionResult> DeleteCity(int id)
+        public IActionResult DeleteCity(int id)
         {
-            // Find the city to delete
-            var city = await _context.Cities.FindAsync(id);
-            if (city == null)
+            var city_data = _context.Cities.Find(id);
+            if (city_data == null)
             {
                 return NotFound();
             }
-
-            // Find and remove flights with the city as origin
-            var originFlights = _context.Flights.Where(f => f.OriginCityId == id);
-            _context.Flights.RemoveRange(originFlights);
-
-            // Find and remove flights with the city as destination
-            var destinationFlights = _context.Flights.Where(f => f.DestinationCityId == id);
-            _context.Flights.RemoveRange(destinationFlights);
-
-            // Remove the city
-            _context.Cities.Remove(city);
-
-            // Save changes to the database
-            await _context.SaveChangesAsync();
-
+            _context.Cities.Remove(city_data);
+            _context.SaveChanges(true);
             return RedirectToAction("List_Of_Cities", "Admin");
-        }
 
+        }
         //============================Flights========================
 
         public IActionResult Add_Flight()

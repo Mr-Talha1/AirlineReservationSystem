@@ -11,9 +11,9 @@ public partial class Flight
 
     public int AirlineId { get; set; }
 
-    public int? OriginCityId { get; set; }
+    public int OriginCityId { get; set; }
 
-    public int? DestinationCityId { get; set; }
+    public int DestinationCityId { get; set; }
 
     public DateTime DepartureTime { get; set; }
 
@@ -37,7 +37,7 @@ public partial class Flight
 
     public virtual Class Class { get; set; } = null!;
 
-    public virtual City? DestinationCity { get; set; }
+    public virtual City DestinationCity { get; set; } = null!;
 
-    public virtual City? OriginCity { get; set; }
+    public virtual City OriginCity { get; set; } = null!;
 }
