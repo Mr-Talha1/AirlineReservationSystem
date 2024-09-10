@@ -62,9 +62,9 @@ namespace AirlineReservationSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightId,FlightNumber,AirlineId,OriginCityId,DestinationCityId,DepartureTime,ArrivalTime,TotalSeats,ClassId,SkyMiles,Stops,Price,CreatedAt")] Flight flight)
+        public async Task<IActionResult> Create(Flight flight)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(flight);
                 await _context.SaveChangesAsync();

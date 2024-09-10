@@ -14,6 +14,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet" />
 
+ 
+    <link href="~/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    
+
+
     <!-- Template CSS Files -->
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/select2.min.css" />
@@ -58,7 +63,9 @@
                                     </li>
                                 </ul>
                             </div>
+
                         </div>
+
                     </div>
                     <div class="col-lg-6">
                         <div class="header-top-content">
@@ -674,12 +681,12 @@
                     
 
                    
-                        @if (TempData["ModelStateInvalid"] != null)
+                        @if (TempData["RegModelStateInvalid"] != null)
                          {
                     
                             <div class="alert alert-danger d-flex align-items-center gap-3" role="alert">
                                 <i class="bi bi-exclamation-triangle-fill fs-4"></i>
-                                @TempData["ModelStateInvalid"]
+                            @TempData["RegModelStateInvalid"]
                             </div>
                        
 
@@ -826,12 +833,12 @@
                             @TempData["InvalidError"]
                         </div>
                     }
-                    @if (TempData["ModelStateInvalid"] != null)
+                    @if (TempData["singModelStateInvalid"] != null)
                     {
 
                         <div class="alert alert-danger d-flex align-items-center gap-3" role="alert">
                             <i class="bi bi-exclamation-triangle-fill fs-4"></i>
-                            @TempData["ModelStateInvalid"]
+                            @TempData["singModelStateInvalid"]
                         </div>
 
 
@@ -909,6 +916,7 @@
     <script src="~/js/jquery.ripples-min.js"></script>
     <script src="~/js/quantity-input.js"></script>
     <script src="~/js/main.js"></script>
+
     @if (TempData["RegAccountError"] != null)
     {
     <script>

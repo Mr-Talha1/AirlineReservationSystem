@@ -13,7 +13,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Add A New Flight</h5>
-                    <div class="col-lg-12">
+                   @*  <div class="col-lg-12">
                         <div class="box" style="margin-bottom:10px;">
                             <div class="js--image-preview"></div>
                             <div class="upload-options">
@@ -23,64 +23,77 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> *@
               <!-- Custom Styled Validation -->
               <form class="row g-3 needs-validation" novalidate>
                 <div class="col-md-4">
                   <label for="validationCustom01" class="form-label">Flight Number</label>
-                  <input type="text" class="form-control" id="validationCustom01" value="John" required>
-                  <div class="valid-feedback">
+                  <input type="text" class="form-control" id="validationCustom01" required>
+                @*   <div class="valid-feedback">
                     Looks good!
-                  </div>
+                  </div> *@
+                            <div class="invalid-feedback">
+                                Please type a valid Flight Number.
+                            </div>
                 </div>
                         <div class="col-md-4">
-                            <label for="validationCustom04" class="form-label">Origin City</label>
+                            <label for="validationCustom04" class="form-label">Airline Name</label>
                             <select class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Choose...</option>
+                                <option selected disabled value="">----------- Select Airline Name -----------</option>
                                 <option>...</option>
                             </select>
                             <div class="invalid-feedback">
-                                Please select a valid state.
+                                Please select a valid Airline Name.
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <label for="validationCustom04" class="form-label">Arival City</label>
+                            <label for="validationCustom04" class="form-label">OriginCity Name </label>
                             <select class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Choose...</option>
+                                <option selected disabled value="">----------- Select OriginCity Name -----------</option>
                                 <option>...</option>
                             </select>
                             <div class="invalid-feedback">
-                                Please select a valid state.
+                                Please select a valid OriginCity Name.
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <label for="validationCustom04" class="form-label">Airline</label>
+                            <label for="validationCustom04" class="form-label">DestinationCity Name</label>
                             <select class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Choose...</option>
+                                <option selected disabled value="">--- Select DestinationCity Name ---</option>
                                 <option>...</option>
                             </select>
                             <div class="invalid-feedback">
-                                Please select a valid state.
+                                Please select a valid DestinationCity Name.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="validationCustom04" class="form-label">Class</label>
+                            <select class="form-select" id="validationCustom04" required>
+                                <option selected disabled value="">---------- Select Class Name -----------</option>
+                                <option>...</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a valid Class.
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="validationCustom04" class="form-label">Departure Time</label>
-                            <select class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option>...</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a valid state.
+                            <div class="input-group has-validation">
+                                <span class="input-group-text" id="inputGroupPrepend"></span>
+                                <input type="datetime-local" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                                <div class="invalid-feedback">
+                                    Please choose a Departure Time.
+                                </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-md-4">
                             <label for="validationCustom04" class="form-label">Arrival Time</label>
-                            <select class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option>...</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a valid state.
+                            <div class="input-group has-validation">
+                                <span class="input-group-text" id="inputGroupPrepend"></span>
+                                <input type="datetime-local" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                                <div class="invalid-feedback">
+                                    Please choose a Arrival Time.
+                                </div>
                             </div>
                         </div>
                 
@@ -88,9 +101,9 @@
                   <label for="validationCustomUsername" class="form-label">Total Seats</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text" id="inputGroupPrepend"></span>
-                    <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                    <input type="number" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
                     <div class="invalid-feedback">
-                      Please choose a username.
+                                    Please type a Total Seats.
                     </div>
                   </div>
                 </div>
@@ -98,29 +111,20 @@
                             <label for="validationCustomUsername" class="form-label">Sky Miles</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend"></span>
-                                <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                                <input type="number" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
                                 <div class="invalid-feedback">
-                                    Please choose a username.
+                                    Please type a Sky Miles.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <label for="validationCustom04" class="form-label">Class</label>
-                            <select class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option>...</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a valid state.
-                            </div>
-                        </div>
+                       
                         <div class="col-md-4">
                             <label for="validationCustomUsername" class="form-label">Stops</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend"></span>
-                                <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                                <input type="number" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
                                 <div class="invalid-feedback">
-                                    Please choose a username.
+                                    Please type a Stops.
                                 </div>
                             </div>
                         </div>
@@ -128,22 +132,13 @@
                             <label for="validationCustomUsername" class="form-label">Price</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend"></span>
-                                <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                                <input type="number" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
                                 <div class="invalid-feedback">
-                                    Please choose a username.
+                                    Please type a Price.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <label for="validationCustom04" class="form-label">Meal</label>
-                            <select class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option>...</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a valid state.
-                            </div>
-                        </div>
+                     
                         <div class="col-12 d-flex justify-content-end">
                   <button class="btn btn-primary w-100" type="submit">Add Flight</button>
                 </div>
