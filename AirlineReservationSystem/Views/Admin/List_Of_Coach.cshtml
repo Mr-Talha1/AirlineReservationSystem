@@ -9,7 +9,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
 <div class="pagetitle">
-    <h1>Classes</h1>
+    <h1>Coaches</h1>
 </div><!-- End Page Title -->
 
 <section class="section">
@@ -36,7 +36,7 @@
                                         <td>@coachItem.CoachName</td>
                                         <td>@coachItem.CreatedAt?.ToString("dd/MMMM/yyyy")</td>
                                         <td>
-                                            <a asp-action="EditClass" asp-controller="Admin" asp-route-id="@coachItem.CoachId"><i class="bi bi-pen" style="color:blue"></i></a>
+                                            <a asp-action="EditCoach" asp-controller="Admin" asp-route-id="@coachItem.CoachId"><i class="bi bi-pen" style="color:blue"></i></a>
 
                                             <a asp-action="DeleteClass" asp-controller="Admin" asp-route-id="@coachItem.CoachId" onclick="return confirm('Are you sure you want to delete this Coach?')">
                                                 <i class="bi bi-trash" style="color:red"></i>

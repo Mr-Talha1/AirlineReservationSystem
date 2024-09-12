@@ -60,7 +60,7 @@ namespace AirlineReservationSystem.Controllers
 
         //============================Classes========================
 
-        public IActionResult Add_Class()
+        public IActionResult Add_Coach()
         {
             if (!User.IsInRole("Admin"))
             {
@@ -69,7 +69,7 @@ namespace AirlineReservationSystem.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Add_Class(Coach coach)
+        public IActionResult Add_Coach(Coach coach)
         {
             var airlinedata = _context.Coaches.FirstOrDefault(u => u.CoachName == coach.CoachName);
             if (airlinedata != null)
@@ -82,16 +82,16 @@ namespace AirlineReservationSystem.Controllers
             if (!ModelState.IsValid)
             {
 
-                return View("Add_Class", coach);
+                return View("Add_Coach", coach);
             }
             _context.Coaches.Add(coach);
             _context.SaveChanges();
-            //return View("List_Of_Classes");
-            return RedirectToAction("List_Of_Classes", "Admin");
+            //return View("List_Of_Coach");
+            return RedirectToAction("List_Of_Coach", "Admin");
 
 
         }
-        public IActionResult List_Of_Classes()
+        public IActionResult List_Of_Coach()
         {
             if (!User.IsInRole("Admin"))
             {
@@ -101,7 +101,7 @@ namespace AirlineReservationSystem.Controllers
             return View(coachData);
         }
 
-        public IActionResult EditClass(int id)
+        public IActionResult EditCoach(int id)
         {
             if (!User.IsInRole("Admin"))
             {
@@ -113,7 +113,7 @@ namespace AirlineReservationSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditClass(Coach coach)
+        public IActionResult EditCoach(Coach coach)
         {
             var Classedata = _context.Coaches.FirstOrDefault(x => x.CoachId == coach.CoachId);
             if (Classedata == null)
@@ -123,7 +123,7 @@ namespace AirlineReservationSystem.Controllers
             if (!ModelState.IsValid)
             {
                 //ClassName
-                return RedirectToAction("EditClass", coach);
+                return RedirectToAction("EditCoach", coach);
 
             }
             var checkeClass = _context.Coaches.FirstOrDefault(x => x.CoachName == coach.CoachName);
@@ -141,7 +141,7 @@ namespace AirlineReservationSystem.Controllers
             }
             Classedata.CoachName = newclassName;
             _context.SaveChanges();
-            return RedirectToAction("List_Of_Classes", "Admin");
+            return RedirectToAction("List_Of_Coach", "Admin");
 
         }
 
@@ -154,7 +154,7 @@ namespace AirlineReservationSystem.Controllers
             }
             _context.Coaches.Remove(class_data);
             _context.SaveChanges(true);
-            return RedirectToAction("List_Of_Classes", "Admin");
+            return RedirectToAction("List_Of_Coach", "Admin");
 
         }
 
@@ -315,7 +315,7 @@ namespace AirlineReservationSystem.Controllers
             }
             _context.Cities.Add(city);
             _context.SaveChanges();
-            //return View("List_Of_Classes");
+            //return View("List_Of_Coach");
             return RedirectToAction("List_Of_Cities", "Admin");
         } 
         
