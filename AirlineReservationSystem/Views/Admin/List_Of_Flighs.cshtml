@@ -1,11 +1,11 @@
-﻿@model List<AirlineReservationSystem.Models.User>
+﻿@model List<AirlineReservationSystem.Models.Flight>
 @* @model List<User> *@
 @{
     Layout = "_AdminLayout";
 }
 
 <div class="pagetitle">
-    <h1>Users</h1>
+    <h1>Flights</h1>
 </div><!-- End Page Title -->
 
 <section class="section">
@@ -13,39 +13,58 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">List Of Users</h5>
+                    <h5 class="card-title">Flights Of Users</h5>
 
                     <!-- Table with stripped rows -->
                     <div class="table-responsive">
                         <table class=" datatable table table-hover">
                             <thead>
                                 </tr>
-                            <th>Image</th>
-                            <th>User Name</th>
-                            <th>Email</th>
-                            <th>Address</th>
-                            <th>Phone Number</th>
-                            <th>Age</th>
-                            <th>Gander</th>
+                            <th>Flight Number</th>
+                            <th>Airline Name</th>
+                            <th>OriginCity Name</th>
+                            <th>DestinationCity Name</th>
+                            <th>Departure Time</th>
+                            <th>Arrival Time</th>
+                            <th>TotalSeats</th>
+                            <th>Available Seats</th>
+                            <th>Coach</th>
                             <th>SkyMiles</th>
-                            <th data-type="date" data-format="YYYY/DD/MM">Register Date</th>
+                            <th>Stops</th>
+                            <th>Price</th>
+                           <th>CreatedAt</th>
                             <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach (var users in Model)
+                                @foreach (var flights in Model)
                                 {
                                     <tr>
-                                        <td><img src="~/image/@users.ImagePath" alt="Alternate Text" width="80px" /></td>
-                                        <td>@users.Username</td>
-                                        <td>@users.Email</td>
-                                        <td>@users.Address</td>
-                                        <td>@users.PhoneNumber</td>
-                                        <td>@users.Age</td>
-                                        <td>@users.Gender</td>
-                                        <td>@users.SkyMiles</td>
-                                        <td data-type="date" data-format="YYYY/DD/MM">@users.CreatedAt</td>
-                                        <td data-type="date"><a asp-action="DeleteUser" asp-controller="Admin" asp-route-id="@users.UserId" onclick="return confirm('Are You Sure Delete this User?')"><i class="bi bi-trash" style="color:red"></i></a></td>
+                                        <td>@flights.FlightNumber</td>
+                                        <td>@flights.Airline.AirlineName</td>
+                                        <td>@flights.OriginCity.CityName</td>
+                                         <td>@flights.DestinationCity.CityName</td>
+                                        <td>@flights.DepartureTime.ToString("dd/MMM/yyyy hh:mm tt")</td>
+                                        <td>@flights.ArrivalTime.ToString("dd/MMM/yyyy hh:mm tt")</td>
+                                        <td>@flights.TotalSeats</td>
+                                        <td>@flights.AvailableSeats</td>
+                                        <td>@flights.Coach.CoachName</td>
+                                        <td>@flights.SkyMiles</td>
+                                        <td>@flights.Stops</td>
+                                        <td>@flights.Price</td>
+                                        <td data-type="date" data-format="YYYY/DD/MM">@flights.CreatedAt?.ToString("dd/MMM/yyyy")</td>
+                                        <td data-type="date">
+                                            <select class="form-control">
+
+                                                <option value="Other" disabled selected>Action</option>
+                                                <option value="Cancel">Cancel</option>
+                                                <option value="Delayed">Delayed</option>
+
+                                            </select>
+                                        </td>@*  
+
+
+                                        <td data-type="date"><a asp-action="" asp-controller="Admin" asp-route-id="@flights.FlightId" onclick="return confirm('Are You Sure Delete this User?')"><i class="bi bi-trash" style="color:red"></i></a></td> *@
                                     </tr>
                                 }
                             </tbody>

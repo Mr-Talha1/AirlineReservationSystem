@@ -1,17 +1,37 @@
 using System.Diagnostics;
 using AirlineReservationSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AirlineReservationSystem.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly Models.AirlineReservationSystemContext _context;
+  
+        public HomeController(Models.AirlineReservationSystemContext context)
         {
-            _logger = logger;
+            _context = context;
+            
         }
+
+        [HttpGet]
+        public JsonResult GetCities(string term)
+        {
+            var cities = _context.Cities
+                                .Where(c => c.CityName.Contains(term))
+                                .Select(c => c.CityName)
+                                .ToList();
+
+            return Json(cities);
+        }
+        //private readonly ILogger<HomeController> _logger;
+
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
 
         public IActionResult Index()
         {
@@ -34,6 +54,9 @@ namespace AirlineReservationSystem.Controllers
         {
             return View();
         }
+
+        
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

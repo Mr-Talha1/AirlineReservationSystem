@@ -1,11 +1,11 @@
-﻿@model AirlineReservationSystem.Models.Class
+﻿@model AirlineReservationSystem.Models.Coach
 @{
     Layout = "_AdminLayout";
 }
 
 <link href="~/css/imageUpload.css" rel="stylesheet">
 <div class="pagetitle">
-    <h1>Update Class</h1>
+    <h1>Update Coach</h1>
 </div><!-- End Page Title -->
 
 <section class="section">
@@ -16,13 +16,13 @@
                 <div class="card-body">
                     <form class="row g-3 needs-validation" novalidate asp-controller="Admin" asp-action="EditClass" enctype="multipart/form-data">
 
-                        <h5 class="card-title">Update a Class</h5>
+                        <h5 class="card-title">Update a Coach</h5>
                         <!-- Custom Styled Validation -->
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="validationCustom01" class="form-label">Class Name</label>
-                                <input type="text" class="form-control" id="validationCustom01" asp-for="ClassName" value="@Model.ClassName">
-                                <span asp-validation-for="ClassName" class="text-danger"></span>
+                                <label for="validationCustom01" class="form-label">Coach Name</label>
+                                <input type="text" class="form-control" id="validationCustom01" asp-for="CoachName" value="@Model.CoachName">
+                                <span asp-validation-for="CoachName" class="text-danger"></span>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -42,7 +42,7 @@
                                 <button class="btn btn-primary w-100" type="submit">Update Class</button>
                             </div>
                         </div>
-                        <input type="hidden" class="form-control" id="validationCustom01" asp-for="ClassId" value="@Model.ClassId">
+                        <input type="hidden" class="form-control" id="validationCustom01" asp-for="CoachId" value="@Model.CoachId">
                     </form><!-- End Custom Styled Validation -->
 
                 </div>

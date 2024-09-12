@@ -2,6 +2,7 @@
 using AirlineReservationSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirlineReservationSystem.Controllers
@@ -68,22 +69,22 @@ namespace AirlineReservationSystem.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Add_Class(Class Class)
+        public IActionResult Add_Class(Coach coach)
         {
-            var airlinedata = _context.Classes.FirstOrDefault(u => u.ClassName == Class.ClassName);
+            var airlinedata = _context.Coaches.FirstOrDefault(u => u.CoachName == coach.CoachName);
             if (airlinedata != null)
             {
                 TempData["ClassError"] = "Class already exist";
-                return View(Class);
+                return View(coach);
                 //ModelState.AddModelError("ClassName", "Class already exist.");
 }
 
             if (!ModelState.IsValid)
             {
 
-                return View("Add_Class", Class);
+                return View("Add_Class", coach);
             }
-            _context.Classes.Add(Class);
+            _context.Coaches.Add(coach);
             _context.SaveChanges();
             //return View("List_Of_Classes");
             return RedirectToAction("List_Of_Classes", "Admin");
@@ -96,8 +97,8 @@ namespace AirlineReservationSystem.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var classData=_context.Classes.OrderByDescending(x=> x.ClassId).ToList();
-            return View(classData);
+            var coachData=_context.Coaches.OrderByDescending(x=> x.CoachId).ToList();
+            return View(coachData);
         }
 
         public IActionResult EditClass(int id)
@@ -106,15 +107,15 @@ namespace AirlineReservationSystem.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var Classdata = _context.Classes.FirstOrDefault(x => x.ClassId == id);
+            var Classdata = _context.Coaches.FirstOrDefault(x => x.CoachId == id);
             return View(Classdata);
 
         }
 
         [HttpPost]
-        public IActionResult EditClass(Class clas)
+        public IActionResult EditClass(Coach coach)
         {
-            var Classedata = _context.Classes.FirstOrDefault(x => x.ClassId == clas.ClassId);
+            var Classedata = _context.Coaches.FirstOrDefault(x => x.CoachId == coach.CoachId);
             if (Classedata == null)
             {
                 return NotFound();
@@ -122,23 +123,23 @@ namespace AirlineReservationSystem.Controllers
             if (!ModelState.IsValid)
             {
                 //ClassName
-                return RedirectToAction("EditClass", clas);
+                return RedirectToAction("EditClass", coach);
 
             }
-            var checkeClass = _context.Classes.FirstOrDefault(x => x.ClassName == clas.ClassName);
+            var checkeClass = _context.Coaches.FirstOrDefault(x => x.CoachName == coach.CoachName);
 
-            var newclassName = Classedata.ClassName;
+            var newclassName = Classedata.CoachName;
             if(checkeClass == null)
             {
-                newclassName = clas.ClassName;
+                newclassName = coach.CoachName;
                
             }
             else
             {
-                TempData["ClassError"] = "Class already exist";
-               return View(clas);
+                TempData["ClassError"] = "Coach already exist";
+               return View(coach);
             }
-            Classedata.ClassName = newclassName;
+            Classedata.CoachName = newclassName;
             _context.SaveChanges();
             return RedirectToAction("List_Of_Classes", "Admin");
 
@@ -146,12 +147,12 @@ namespace AirlineReservationSystem.Controllers
 
         public IActionResult DeleteClass(int id)
         {
-            var class_data = _context.Classes.Find(id);
+            var class_data = _context.Coaches.Find(id);
             if (class_data == null)
             {
                 return NotFound();
             }
-            _context.Classes.Remove(class_data);
+            _context.Coaches.Remove(class_data);
             _context.SaveChanges(true);
             return RedirectToAction("List_Of_Classes", "Admin");
 
@@ -399,12 +400,56 @@ namespace AirlineReservationSystem.Controllers
 
         public IActionResult Add_Flight()
         {
+          
+            ViewData["AirlineId"] = new SelectList(_context.Airlines, "AirlineId", "AirlineName");
+            ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
+            ViewData["DestinationCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+            ViewData["OriginCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add_Flight(Flight flight)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var flightdata = _context.Flights.FirstOrDefault(u => u.FlightNumber == flight.FlightNumber);
+                if (flightdata != null)
+                {
+                    ViewData["AirlineId"] = new SelectList(_context.Airlines, "AirlineId", "AirlineName");
+                    ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
+                    ViewData["DestinationCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+                    ViewData["OriginCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+                    TempData["FlightError"] = " This Fight Number Already Exist Please Enter Unique a Flight Number";
+                    return View(flight);
+                }
+
+                if(flight.OriginCityId== flight.DestinationCityId)
+                {
+                    ViewData["AirlineId"] = new SelectList(_context.Airlines, "AirlineId", "AirlineName");
+                    ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
+                    ViewData["DestinationCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+                    ViewData["OriginCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+                    TempData["originError"] = "OriginCity Name and DestinationCity Name are same";
+                    return View(flight);
+                }
+
+                _context.Add(flight);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(List_Of_Flighs));
+            }
+            ViewData["AirlineId"] = new SelectList(_context.Airlines, "AirlineId", "CoachName");
+            ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
+            ViewData["DestinationCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+            ViewData["OriginCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+            return View(flight);
         }
         public IActionResult List_Of_Flighs()
         {
-            var userdata = _context.Users.OrderByDescending(x => x.UserId).ToList();
-            return View(userdata);
+            var flightdata = _context.Flights.OrderByDescending(x => x.FlightId).Include(c=>c.Coach).Include(a=>a.Airline).Include(d=>d.DestinationCity).Include(o=>o.OriginCity).ToList();
+            return View(flightdata);
         }
 
         public IActionResult List_Of_Cancel_Flights()
@@ -412,7 +457,19 @@ namespace AirlineReservationSystem.Controllers
             return View();
         }
 
-        
+
+
+        //[HttpGet]
+        //public JsonResult GetCities(string term)
+        //{
+        //    var cities = _context.Cities
+        //                         .Where(c => c.CityName.Contains(term))
+        //                         .Select(c => new { c.CityName, c.CountryName })
+        //                         .ToList();
+
+        //    return Json(cities);
+        //}
+
     }
 }
 //changes

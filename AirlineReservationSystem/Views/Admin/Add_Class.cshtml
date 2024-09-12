@@ -1,4 +1,4 @@
-﻿@model AirlineReservationSystem.Models.Class
+﻿@model AirlineReservationSystem.Models.Coach
 @{
     Layout = "_AdminLayout";
 }
@@ -16,13 +16,13 @@
                 <div class="card-body">
                     <form class="row g-3 needs-validation" novalidate asp-controller="Admin" asp-action="Add_Class">
 
-                    <h5 class="card-title">Add A New Class</h5>
+                        <h5 class="card-title">Add a New Coach</h5>
                     <!-- Custom Styled Validation -->
                         <div class="row">
                         <div class="col-md-12">
-                            <label for="validationCustom01" class="form-label">Class Name</label>
-                            <input type="text" class="form-control" id="validationCustom01" required asp-for="ClassName">
-                            <span asp-validation-for="ClassName" class="text-danger"></span>
+                                <label for="validationCustom01" class="form-label">Coach Name</label>
+                            <input type="text" class="form-control" id="validationCustom01" required asp-for="CoachName">
+                                <span asp-validation-for="CoachName" class="text-danger"></span>
 
                             <div class="valid-feedback">
                                 Looks good!
@@ -40,7 +40,7 @@
                         </div>
                         <div class="row mt-2">
                          <div class="col-12 d-flex justify-content-end">
-                            <button class="btn btn-primary w-100" type="submit">Add Class</button>
+                            <button class="btn btn-primary w-100" type="submit">Add Coach</button>
                         </div>
                 </div>
                     </form><!-- End Custom Styled Validation -->
