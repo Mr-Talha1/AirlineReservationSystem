@@ -9,7 +9,7 @@ public partial class Flight
 
     public string FlightNumber { get; set; } = null!;
 
-    public int AirlineId { get; set; }
+    public int? AirlineId { get; set; }
 
     public int? OriginCityId { get; set; }
 
@@ -23,13 +23,19 @@ public partial class Flight
 
     public int? AvailableSeats { get; set; }
 
-    public int CoachId { get; set; }
+    public int? CoachId { get; set; }
 
     public int SkyMiles { get; set; }
 
     public int? Stops { get; set; }
 
     public decimal Price { get; set; }
+
+    public string? Status { get; set; }
+
+    public string? Reason { get; set; }
+
+    public DateTime? StatusDate { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

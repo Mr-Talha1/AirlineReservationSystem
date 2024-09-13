@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using AirlineReservationSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirlineReservationSystem.Controllers
@@ -35,6 +36,7 @@ namespace AirlineReservationSystem.Controllers
 
         public IActionResult Index()
         {
+            ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
             return View();
         }
 

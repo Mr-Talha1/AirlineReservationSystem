@@ -1,4 +1,4 @@
-﻿
+﻿@* @model AirlineReservationSystem.Models.Flight *@
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -79,25 +79,20 @@
                                         Round-trip
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="multi-city-tab" data-bs-toggle="tab" href="#multi-city" role="tab"
-                                       aria-controls="multi-city" aria-selected="false">
-                                        Multi-city
-                                    </a>
-                                </li>
+
                             </ul>
                         </div>
-                        <!-- end section-tab -->
+                        <!-- end section-tab onway -->
                         <div class="tab-content" id="myTabContent3">
                             <div class="tab-pane fade show active" id="one-way" role="tabpanel" aria-labelledby="one-way-tab">
                                 <div class="contact-form-action">
-                                    <form action="#" class="row align-items-center">
+                                    <form asp-action="FlightSearchResult" asp-controller="Flight" method="get" class="row align-items-center">
                                         <div class="col-lg-6 pe-0">
                                             <div class="input-box">
                                                 <label class="label-text">Flying from</label>
                                                 <div class="form-group">
                                                     <span class="la la-map-marker form-icon"></span>
-                                                    <input class="form-control" type="text" placeholder="City or airport" />
+                                                    <input class="form-control" type="text" placeholder="City" name="FlyingFrom" />
                                                 </div>
                                             </div>
                                         </div>
@@ -107,7 +102,7 @@
                                                 <label class="label-text">Flying to</label>
                                                 <div class="form-group">
                                                     <span class="la la-map-marker form-icon"></span>
-                                                    <input class="form-control" type="text" placeholder="City or airport" />
+                                                    <input class="form-control" type="text" placeholder="City" name="Flyingto" />
                                                 </div>
                                             </div>
                                         </div>
@@ -117,12 +112,13 @@
                                                 <label class="label-text">Departing</label>
                                                 <div class="form-group">
                                                     <span class="la la-calendar form-icon"></span>
-                                                    <input class="date-range form-control" type="text" name="daterange-single" />
+                                                    <input class="date-range form-control" type="date" name="flightdate" />
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- end col-lg-3 -->
-                                        <div class="col-lg-3 pe-0">
+
+                                       @*  <div class="col-lg-3 pe-0">
                                             <div class="input-box">
                                                 <label class="label-text">Passengers</label>
                                                 <div class="form-group">
@@ -181,31 +177,32 @@
                                                     <!-- end dropdown-->
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> *@
+
                                         <!-- end col-lg-3 -->
                                         <div class="col-lg-3 pe-0">
                                             <div class="input-box">
                                                 <label class="label-text">Coach</label>
                                                 <div class="form-group select2-container-wrapper select-contain select-contain-shadow w-auto">
-                                                    <select class="select-contain-select">
-                                                        <option value="1" selected>Economy</option>
-                                                        <option value="2">Business</option>
-                                                        <option value="3">First class</option>
-                                                    </select>
+
+                                                    <select class="select-contain-select" asp-items="ViewBag.CoachID" name="couches">
+                                                       <option selected disabled> ----------Select Coach Name -----------</option>
+                                                     </select>
+
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- end col-lg-3 -->
                                         <div class="col-lg-3">
-                                            <a asp-action="FlightSearchResult" class="theme-btn w-100 text-center margin-top-20px">
+                                            <button class="theme-btn w-100 text-center margin-top-20px" type="submit">
                                                 Search
                                                 Now
-                                            </a>
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                            <!-- end tab-pane -->
+                            <!-- end tab-pane roundtrip-->
                             <div class="tab-pane fade" id="round-trip" role="tabpanel" aria-labelledby="round-trip-tab">
                                 <div class="contact-form-action">
                                     <form action="#" class="row align-items-center">
@@ -373,142 +370,8 @@
                                 </div>
                                 <!-- end advanced-wrap -->
                             </div>
-                            <!-- end tab-pane -->
-                            <div class="tab-pane fade multi-flight-wrap" id="multi-city" role="tabpanel"
-                                 aria-labelledby="multi-city-tab">
-                                <div class="contact-form-action multi-flight-field d-flex align-items-center">
-                                    <form action="#" class="row flex-grow-1 align-items-center">
-                                        <div class="col-lg-4 pe-0">
-                                            <div class="input-box">
-                                                <label class="label-text">Flying from</label>
-                                                <div class="form-group">
-                                                    <span class="la la-map-marker form-icon"></span>
-                                                    <input class="form-control" type="text" placeholder="City or airport" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end col-lg-3 -->
-                                        <div class="col-lg-4 pe-0">
-                                            <div class="input-box">
-                                                <label class="label-text">Flying to</label>
-                                                <div class="form-group">
-                                                    <span class="la la-map-marker form-icon"></span>
-                                                    <input class="form-control" type="text" placeholder="City or airport" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end col-lg-3 -->
-                                        <div class="col-lg-4">
-                                            <div class="input-box">
-                                                <label class="label-text">Departing</label>
-                                                <div class="form-group">
-                                                    <span class="la la-calendar form-icon"></span>
-                                                    <input class="date-range form-control date-multi-picker" type="text"
-                                                           name="daterange-single" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end col-lg-3 -->
-                                    </form>
-                                    <div class="multi-flight-delete-wrap pt-3 ps-3">
-                                        <button class="multi-flight-remove" type="button">
-                                            <i class="la la-remove"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="row align-items-center">
-                                    <div class="col-lg-3 pe-0">
-                                        <div class="form-group">
-                                            <button class="theme-btn add-flight-btn margin-top-40px w-100" type="button">
-                                                <i class="la la-plus me-1"></i>Add another flight
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 pe-0">
-                                        <div class="input-box">
-                                            <label class="label-text">Passengers</label>
-                                            <div class="form-group">
-                                                <div class="dropdown dropdown-contain gty-container">
-                                                    <a class="dropdown-toggle dropdown-btn" href="#" role="button" data-bs-toggle="dropdown"
-                                                       aria-expanded="false" data-bs-auto-close="outside">
-                                                        <span class="adult" data-text="Adult" data-text-multi="Adults">0 Adult</span>
-                                                        -
-                                                        <span class="children" data-text="Child" data-text-multi="Children">0 Child</span>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-wrap">
-                                                        <div class="dropdown-item">
-                                                            <div class="qty-box d-flex align-items-center justify-content-between">
-                                                                <label>Adults</label>
-                                                                <div class="qtyBtn d-flex align-items-center">
-                                                                    <div class="qtyDec">
-                                                                        <i class="la la-minus"></i>
-                                                                    </div>
-                                                                    <input type="text" name="adult_number" value="0" />
-                                                                    <div class="qtyInc">
-                                                                        <i class="la la-plus"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="dropdown-item">
-                                                            <div class="qty-box d-flex align-items-center justify-content-between">
-                                                                <label>Children</label>
-                                                                <div class="qtyBtn d-flex align-items-center">
-                                                                    <div class="qtyDec">
-                                                                        <i class="la la-minus"></i>
-                                                                    </div>
-                                                                    <input type="text" name="child_number" value="0" />
-                                                                    <div class="qtyInc">
-                                                                        <i class="la la-plus"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="dropdown-item">
-                                                            <div class="qty-box d-flex align-items-center justify-content-between">
-                                                                <label>Infants</label>
-                                                                <div class="qtyBtn d-flex align-items-center">
-                                                                    <div class="qtyDec">
-                                                                        <i class="la la-minus"></i>
-                                                                    </div>
-                                                                    <input type="text" name="infants_number" value="0" class="qty-input" />
-                                                                    <div class="qtyInc">
-                                                                        <i class="la la-plus"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- end dropdown-->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end col-lg-3 -->
-                                    <div class="col-lg-3 pe-0">
-                                        <div class="input-box">
-                                            <label class="label-text">Coach</label>
-                                            <div class="form-group select2-container-wrapper">
-                                                <div class="select-contain select-contain-shadow w-auto">
-                                                    <select class="select-contain-select">
-                                                        <option value="1" selected>Economy</option>
-                                                        <option value="2">Business</option>
-                                                        <option value="3">First class</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end col-lg-3 -->
-                                    <div class="col-lg-3">
-                                        <a asp-action="FlightSearchResult" class="theme-btn w-100 text-center margin-top-20px">
-                                            Search
-                                            Now
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end tab-pane -->
+                            
+                            
                         </div>
                     </div>
                     <!-- end main-search-input -->

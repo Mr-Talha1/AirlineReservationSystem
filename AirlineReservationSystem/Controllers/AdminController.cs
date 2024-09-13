@@ -74,7 +74,7 @@ namespace AirlineReservationSystem.Controllers
             var airlinedata = _context.Coaches.FirstOrDefault(u => u.CoachName == coach.CoachName);
             if (airlinedata != null)
             {
-                TempData["ClassError"] = "Class already exist";
+                TempData["ClassError"] = "Coach already exist";
                 return View(coach);
                 //ModelState.AddModelError("ClassName", "Class already exist.");
 }
@@ -435,7 +435,7 @@ namespace AirlineReservationSystem.Controllers
                     TempData["originError"] = "OriginCity Name and DestinationCity Name are same";
                     return View(flight);
                 }
-
+                flight.Status = "Active";
                 _context.Add(flight);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(List_Of_Flighs));
