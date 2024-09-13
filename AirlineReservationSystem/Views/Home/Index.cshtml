@@ -235,7 +235,7 @@
                                                 <label class="label-text">Flying from</label>
                                                 <div class="form-group">
                                                     <span class="la la-map-marker form-icon"></span>
-                                                    <input class="form-control" type="text" placeholder="City " />
+                                                    <input class="form-control" type="text" placeholder="City" name="FlyingFrom" />
                                                 </div>
                                             </div>
                                         </div>
@@ -245,7 +245,7 @@
                                                 <label class="label-text">Flying to</label>
                                                 <div class="form-group">
                                                     <span class="la la-map-marker form-icon"></span>
-                                                    <input class="form-control" type="text" placeholder="City" />
+                                                    <input class="form-control" type="text" placeholder="City" name="Flyingto" />
                                                 </div>
                                             </div>
                                         </div>
@@ -255,7 +255,7 @@
                                                 <label class="label-text">Departing</label>
                                                 <div class="form-group">
                                                     <span class="la la-calendar form-icon"></span>
-                                                    <input class="date-range form-control" type="date"/>
+                                                    <input class="date-range form-control" type="date" name="DepartingDate"/>
                                                 </div>
                                             </div>
                                         </div> 
@@ -264,7 +264,7 @@
                                                 <label class="label-text"> Returning</label>
                                                 <div class="form-group">
                                                     <span class="la la-calendar form-icon"></span>
-                                                    <input class="date-range form-control" type="date"/>
+                                                    <input class="date-range form-control" type="date" name="ReturningDate" />
                                                 </div>
                                             </div>
                                         </div>
@@ -364,7 +364,7 @@
                                                             <label class="label-text">Preferred airline</label>
                                                             <div class="form-group select2-container-wrapper">
                                                                 <div class="select-contain select-contain-shadow w-100">
-                                                                    <select class="select-contain-select" asp-items="ViewBag.CoachID" name="couches">
+                                                                    <select class="select-contain-select" asp-items="ViewBag.CoachID" name="Rcouches">
                                                                         <option> No preference </option>
                                                                     </select>
                                                                 </div>

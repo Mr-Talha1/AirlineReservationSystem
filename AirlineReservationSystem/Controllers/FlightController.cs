@@ -93,6 +93,58 @@ namespace AirlineReservationSystem.Controllers
 
 
         //[HttpGet]
+        //public IActionResult RoundTripFlightSearch(string FlyingFrom, string Flyingto, DateTime DepartingDate, int? couches)
+        //{
+        //    if (couches != null)
+        //    {
+        //        // Find flights based on input criteria
+        //        var cflights = _context.Flights
+        //            .Include(f => f.Airline)
+        //            .Include(f => f.OriginCity)
+        //            .Include(f => f.DestinationCity)
+        //            .Include(f => f.Coach)
+        //            .Where(f => f.OriginCity.CityName == FlyingFrom &&
+        //                        f.DestinationCity.CityName == Flyingto &&
+        //                        f.DepartureTime.Date == flightdate.Date &&
+        //                        f.Coach.CoachId == couches &&
+        //                    f.FlightType == "One Way")
+        //            .ToList();
+        //        ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
+        //        ViewData["OriginName"] = FlyingFrom;
+        //        ViewData["DestinationName"] = Flyingto;
+        //        ViewData["DestinationDate"] = flightdate;
+        //        ViewData["DestinationFlightCount"] = cflights.Count;
+        //        if (cflights.Count == 0)
+        //        {
+        //            ViewBag.Error = "No flights found.";
+        //        }
+
+        //        return View(cflights);
+        //    }
+        //    // Find flights based on input criteria
+        //    var flights = _context.Flights
+        //        .Include(f => f.Airline)
+        //        .Include(f => f.OriginCity)
+        //        .Include(f => f.DestinationCity)
+        //        .Include(f => f.Coach)
+        //        .Where(f => f.OriginCity.CityName == FlyingFrom &&
+        //                    f.DestinationCity.CityName == Flyingto &&
+        //                     f.FlightType == "One Way" &&
+        //                    f.ReturnDepartureTime.Date == DepartingDate.Date 
+        //                   )
+        //        .ToList();
+        //    ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
+        //    ViewData["OriginName"] = FlyingFrom;
+        //    ViewData["DestinationName"] = Flyingto;
+        //    ViewData["DestinationDate"] = flightdate;
+        //    ViewData["DestinationFlightCount"] = flights.Count;
+        //    if (flights.Count == 0)
+        //    {
+        //        ViewBag.Error = "No flights found.";
+        //    }
+
+        //    return View(flights);
+        //}
 
 
 
