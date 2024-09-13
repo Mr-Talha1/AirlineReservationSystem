@@ -9,6 +9,8 @@ public partial class Flight
 
     public string FlightNumber { get; set; } = null!;
 
+    public string? FlightType { get; set; }
+
     public int? AirlineId { get; set; }
 
     public int? OriginCityId { get; set; }
@@ -18,6 +20,10 @@ public partial class Flight
     public DateTime DepartureTime { get; set; }
 
     public DateTime ArrivalTime { get; set; }
+
+    public DateTime? ReturnDepartureTime { get; set; }
+
+    public DateTime? ReturnArrivalTime { get; set; }
 
     public int TotalSeats { get; set; }
 

@@ -409,17 +409,6 @@ namespace AirlineReservationSystem.Controllers
         }
 
 
-        //round trip
-        public IActionResult Add_Round_Flight()
-        {
-
-            ViewData["AirlineId"] = new SelectList(_context.Airlines, "AirlineId", "AirlineName");
-            ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
-            ViewData["DestinationCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
-            ViewData["OriginCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
-            return View();
-        }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -448,7 +437,9 @@ namespace AirlineReservationSystem.Controllers
                     TempData["originError"] = "OriginCity Name and DestinationCity Name are same";
                     return View(flight);
                 }
+                flight.AvailableSeats = flight.TotalSeats;
                 flight.Status = "Active";
+                flight.FlightType = "One Way";
                 _context.Add(flight);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(List_Of_Flighs));
@@ -473,19 +464,57 @@ namespace AirlineReservationSystem.Controllers
             return View();
         }
 
+        //==========================add round flight============================
+        //round trip
+        public IActionResult Add_Round_Flight()
+        {
 
+            ViewData["AirlineId"] = new SelectList(_context.Airlines, "AirlineId", "AirlineName");
+            ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
+            ViewData["DestinationCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+            ViewData["OriginCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add_Round_Flight(Flight flight)
+        {
+            if (ModelState.IsValid)
+            {
 
-        //[HttpGet]
-        //public JsonResult GetCities(string term)
-        //{
-        //    var cities = _context.Cities
-        //                         .Where(c => c.CityName.Contains(term))
-        //                         .Select(c => new { c.CityName, c.CountryName })
-        //                         .ToList();
+                var flightdata = _context.Flights.FirstOrDefault(u => u.FlightNumber == flight.FlightNumber);
+                if (flightdata != null)
+                {
+                    ViewData["AirlineId"] = new SelectList(_context.Airlines, "AirlineId", "AirlineName");
+                    ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
+                    ViewData["DestinationCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+                    ViewData["OriginCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+                    TempData["FlightError"] = " This Fight Number Already Exist Please Enter Unique a Flight Number";
+                    return View(flight);
+                }
 
-        //    return Json(cities);
-        //}
+                if (flight.OriginCityId == flight.DestinationCityId)
+                {
+                    ViewData["AirlineId"] = new SelectList(_context.Airlines, "AirlineId", "AirlineName");
+                    ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
+                    ViewData["DestinationCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+                    ViewData["OriginCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+                    TempData["originError"] = "OriginCity Name and DestinationCity Name are same";
+                    return View(flight);
+                }
+                flight.AvailableSeats = flight.TotalSeats;
+                flight.Status = "Active";
+                flight.FlightType = "Round Trip";
+                _context.Add(flight);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(List_Of_Flighs));
+            }
+            ViewData["AirlineId"] = new SelectList(_context.Airlines, "AirlineId", "CoachName");
+            ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
+            ViewData["DestinationCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+            ViewData["OriginCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+            return View(flight);
+        }
 
     }
 }
-//changes

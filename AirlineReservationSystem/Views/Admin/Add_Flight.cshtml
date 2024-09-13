@@ -25,15 +25,15 @@
                 @*   <div class="valid-feedback">
                     Looks good!
                   </div> *@
-                            <div class="my-3">
+                         
                             @if (TempData["FlightError"] != null)
                             {
-                                <div class="alert alert-danger d-flex align-items-center gap-3" role="alert">
-                                    <i class="bi bi-exclamation-triangle-fill fs-4"></i>
-                                    @TempData["FlightError"]
+                            
+                                <div class="text-danger">
+                                    <i class="bi bi-exclamation-triangle-fill fs-4"></i>   @TempData["FlightError"]
                                 </div>
                             }
-                            </div>
+                        
                             <div class="invalid-feedback">
                                 Please type a valid Flight Number.
                             </div>
@@ -58,15 +58,14 @@
                             <div class="invalid-feedback">
                                 Please select a valid OriginCity Name.
                             </div>
-                            <div class="my-3">
+                           
                                 @if (TempData["originError"] != null)
                                 {
-                                    <div class="alert alert-danger d-flex align-items-center gap-3" role="alert">
-                                        <i class="bi bi-exclamation-triangle-fill fs-4"></i>
-                                        @TempData["originError"]
-                                    </div>
+                                <div class="text-danger">
+                                    <i class="bi bi-exclamation-triangle-fill fs-4"></i>    @TempData["originError"]
+                                </div>
                                 }
-                            </div>
+                          
                         </div>
                         <div class="col-md-4">
                             <label for="validationCustom04" class="form-label">DestinationCity Name</label>
