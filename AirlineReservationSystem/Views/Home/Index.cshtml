@@ -92,7 +92,7 @@
                                                 <label class="label-text">Flying from</label>
                                                 <div class="form-group">
                                                     <span class="la la-map-marker form-icon"></span>
-                                                    <input class="form-control" type="text" placeholder="City" name="FlyingFrom" />
+                                                    <input class="form-control" type="text" placeholder="City" name="FlyingFrom" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -102,7 +102,7 @@
                                                 <label class="label-text">Flying to</label>
                                                 <div class="form-group">
                                                     <span class="la la-map-marker form-icon"></span>
-                                                    <input class="form-control" type="text" placeholder="City" name="Flyingto" />
+                                                    <input class="form-control" type="text" placeholder="City" name="Flyingto" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -112,14 +112,14 @@
                                                 <label class="label-text">Departing</label>
                                                 <div class="form-group">
                                                     <span class="la la-calendar form-icon"></span>
-                                                    <input class="date-range form-control" type="date" name="flightdate" />
+                                                    <input class="date-range form-control" required type="date" name="flightdate"/>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- end col-lg-3 -->
 
-                                       @*  <div class="col-lg-3 pe-0">
-                                            <div class="input-box">
+                                       <div class="col-lg-3 pe-0">
+                                            @*    <div class="input-box">
                                                 <label class="label-text">Passengers</label>
                                                 <div class="form-group">
                                                     <div class="dropdown dropdown-contain gty-container">
@@ -176,21 +176,21 @@
                                                     </div>
                                                     <!-- end dropdown-->
                                                 </div>
-                                            </div>
                                         </div> *@
+                                        </div>
 
                                         <!-- end col-lg-3 -->
                                         <div class="col-lg-3 pe-0">
-                                            <div class="input-box">
-                                                <label class="label-text">Coach</label>
+                                           @*  <div class="input-box">
+                                                <label class="label-text">Preferred Coach</label>
                                                 <div class="form-group select2-container-wrapper select-contain select-contain-shadow w-auto">
 
                                                     <select class="select-contain-select" asp-items="ViewBag.CoachID" name="couches">
                                                        <option selected disabled> ----------Select Coach Name -----------</option>
-                                                     </select>
+                                                     </select> 
 
                                                 </div>
-                                            </div>
+                                            </div> *@
                                         </div>
                                         <!-- end col-lg-3 -->
                                         <div class="col-lg-3">
@@ -199,8 +199,33 @@
                                                 Now
                                             </button>
                                         </div>
+                                        @* ============== *@
+                                        <div class="advanced-wrap">
+                                            <a class="btn collapse-btn theme-btn-hover-gray font-size-15" data-bs-toggle="collapse"
+                                               href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree">
+                                                Advanced options <i class="la la-angle-down ms-1"></i>
+                                            </a>
+                                            <div class="collapse pt-3" id="collapseThree">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="input-box">
+                                                            <label class="label-text">Preferred Coach</label>
+                                                            <div class="form-group select2-container-wrapper">
+                                                                <div class="select-contain select-contain-shadow w-100">
+                                                                    <select class="select-contain-select" asp-items="ViewBag.CoachID" name="couches">
+                                                                        <option > No preference </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @* ============== *@
                                     </form>
                                 </div>
+
                             </div>
                             <!-- end tab-pane roundtrip-->
                             <div class="tab-pane fade" id="round-trip" role="tabpanel" aria-labelledby="round-trip-tab">
@@ -339,27 +364,8 @@
                                                                 <option value="AN">Advanced Air</option>
                                                                 <option value="A3">Aegean</option>
                                                                 <option value="EI">Aer Lingus</option>
-                                                                <option value="5G">
-                                                                    Aerocuahonte / Mayair
-                                                                </option>
-                                                                <option value="SU">
-                                                                    Aeroflot-Russian Airlines
-                                                                </option>
-                                                                <option value="AR">
-                                                                    Aerolineas Argentinas
-                                                                </option>
-                                                                <option value="VW">Aeromar Airlines</option>
-                                                                <option value="AM">Aeromexico</option>
-                                                               
-                                                                <option value="Y4">Volaris</option>
-                                                                <option value="V7">Volotea</option>
-                                                                <option value="VY">Vueling Airlines</option>
-                                                                <option value="WS">WestJet</option>
-                                                                <option value="WM">
-                                                                    Windward Island Airways International
-                                                                </option>
-                                                                <option value="MF">Xiamen Airlines</option>
-                                                                <option value="SE">XL Airways</option>
+                                                              
+                                                              
                                                             </select>
                                                         </div>
                                                     </div>

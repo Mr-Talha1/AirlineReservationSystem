@@ -397,7 +397,7 @@ namespace AirlineReservationSystem.Controllers
         }
 
         //============================Flights========================
-
+        //onew way
         public IActionResult Add_Flight()
         {
           
@@ -407,6 +407,19 @@ namespace AirlineReservationSystem.Controllers
             ViewData["OriginCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
             return View();
         }
+
+
+        //round trip
+        public IActionResult Add_Round_Flight()
+        {
+
+            ViewData["AirlineId"] = new SelectList(_context.Airlines, "AirlineId", "AirlineName");
+            ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
+            ViewData["DestinationCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+            ViewData["OriginCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+            return View();
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -446,6 +459,9 @@ namespace AirlineReservationSystem.Controllers
             ViewData["OriginCityId"] = new SelectList(_context.Cities, "CityId", "CityName");
             return View(flight);
         }
+
+
+
         public IActionResult List_Of_Flighs()
         {
             var flightdata = _context.Flights.OrderByDescending(x => x.FlightId).Include(c=>c.Coach).Include(a=>a.Airline).Include(d=>d.DestinationCity).Include(o=>o.OriginCity).ToList();

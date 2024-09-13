@@ -1,19 +1,5 @@
 ﻿@model IEnumerable<AirlineReservationSystem.Models.Flight>
-  <!-- Template CSS Files -->
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/select2.min.css" />
-    <link rel="stylesheet" href="~/css/line-awesome.css" />
-    <link rel="stylesheet" href="~/css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="~/css/owl.theme.default.min.css" />
-    <link rel="stylesheet" href="~/css/jquery.fancybox.min.css" />
-    <link rel="stylesheet" href="~/css/daterangepicker.css" />
-    <link rel="stylesheet" href="~/css/animated-headline.css" />
-    <link rel="stylesheet" href="~/css/jquery-ui.css" />
-    <link rel="stylesheet" href="~/css/flag-icon.min.css" />
-    <link rel="stylesheet" href="~/css/style.css" />
-@{
-    Layout = null;
-}
+
 <!-- ================================
     START BREADCRUMB AREA
 ================================= -->
@@ -57,7 +43,7 @@
                                                             <label class="label-text">Flying from</label>
                                                             <div class="form-group">
                                                                 <span class="la la-map-marker form-icon"></span>
-                                                                <input class="form-control" type="text" placeholder="City" name="FlyingFrom" value="@ViewData["OriginName"]"/>
+                                                                <input class="form-control" type="text" placeholder="City" name="FlyingFrom" value="@ViewData["OriginName"]" required />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -67,7 +53,7 @@
                                                             <label class="label-text">Flying to</label>
                                                             <div class="form-group">
                                                                 <span class="la la-map-marker form-icon"></span>
-                                                                <input class="form-control" type="text" placeholder="City" name="Flyingto" value="@ViewData["DestinationName"]" />
+                                                                <input class="form-control" type="text" placeholder="City" name="Flyingto" value="@ViewData["DestinationName"]" required />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -77,13 +63,13 @@
                                                             <label class="label-text">Departing</label>
                                                             <div class="form-group">
                                                                 <span class="la la-calendar form-icon"></span>
-                                                                <input class="date-range form-control" type="date" name="flightdate"/>
+                                                                <input class="date-range form-control" type="date" name="flightdate" required />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!-- end col-lg-3 -->
-                                                    @*  <div class="col-lg-3 pe-0">
-                                                    <div class="input-box">
+                                                    <div class="col-lg-3 pe-0">
+                                                        @*   <div class="input-box">
                                                     <label class="label-text">Passengers</label>
                                                     <div class="form-group">
                                                     <div class="dropdown dropdown-contain gty-container">
@@ -140,29 +126,51 @@
                                                     </div>
                                                     <!-- end dropdown-->
                                                     </div>
-                                                    </div>
-                                                    </div> *@
+                                                    </div>*@
+                                                    </div> 
 
                                                     <!-- end col-lg-3 -->
                                                     <div class="col-lg-3 pe-0">
-                                                        <div class="input-box">
+                                                       @*  <div class="input-box">
                                                             <label class="label-text">Coach</label>
                                                             <div class="form-group select2-container-wrapper select-contain select-contain-shadow w-auto">
 
                                                                 <select class="select-contain-select" asp-items="ViewBag.CoachID" name="Couches">
-                                                                    @* <option selected disabled> ----------Select Coach Name -----------</option> *@
+                                                                    <option selected disabled> ----------Select Coach Name -----------</option>
                                                                 </select>
 
                                                             </div>
-                                                        </div>
+                                                        </div> *@
                                                     </div>
                                                     <!-- end col-lg-3 -->
                                                     <div class="col-lg-3">
-                                                        <button class="theme-btn w-100 text-center margin-top-20px" type="submit">
-                                                            Search
-                                                            Now
-                                                        </button>
+                                                        <button class="theme-btn w-100 text-center margin-top-20px" type="submit">Updated
+                                                            Search</button>
                                                     </div>
+                                                    @* ============== *@
+                                                    <div class="advanced-wrap">
+                                                        <a class="btn collapse-btn theme-btn-hover-gray font-size-15" data-bs-toggle="collapse"
+                                                           href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree">
+                                                            Advanced options <i class="la la-angle-down ms-1"></i>
+                                                        </a>
+                                                        <div class="collapse pt-3" id="collapseThree">
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <div class="input-box">
+                                                                        <label class="label-text">Preferred Coach</label>
+                                                                        <div class="form-group select2-container-wrapper">
+                                                                            <div class="select-contain select-contain-shadow w-100">
+                                                                                <select class="select-contain-select" asp-items="ViewBag.CoachID" name="couches">
+                                                                                    <option> No preference </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @* ============== *@
                                                 </form>
                                             </div>
                                         </div>
@@ -893,17 +901,3 @@
 <!-- ================================
     END CTA AREA
 ================================= -->
-<script src="~/js/jquery-3.7.1.min.js"></script>
-<script src="~/js/jquery-ui.js"></script>
-
-<script src="~/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/select2.min.js"></script>
-<script src="~/js/moment.min.js"></script>
-<script src="~/js/daterangepicker.js"></script>
-<script src="~/js/owl.carousel.min.js"></script>
-<script src="~/js/jquery.fancybox.min.js"></script>
-<script src="~/js/jquery.countTo.min.js"></script>
-<script src="~/js/animated-headline.js"></script>
-<script src="~/js/jquery.ripples-min.js"></script>
-<script src="~/js/quantity-input.js"></script>
-<script src="~/js/main.js"></script>

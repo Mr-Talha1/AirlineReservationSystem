@@ -5,44 +5,44 @@
     Layout = "_AdminLayout";
 }
 <link href="~/css/imageUpload.css" rel="stylesheet">
-    <div class="pagetitle">
-      <h1>Add One Way Flight</h1>
-    </div><!-- End Page Title -->
+<div class="pagetitle">
+    <h1>Add Round Trip Flight</h1>
+</div><!-- End Page Title -->
 
-    <section class="section">
-      <div class="row">
+<section class="section">
+    <div class="row">
         <div class="col-lg-12">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Add A New Flight</h5>
-                  
-              <!-- Custom Styled Validation -->
-                    <form class="row g-3 needs-validation" novalidate asp-action="Add_Flight" asp-controller="Admin">
-                <div class="col-md-4">
-                  <label for="validationCustom01" class="form-label">Flight Number</label>
-                  <input type="text" class="form-control" id="validationCustom01" required asp-for="FlightNumber">
-                @*   <div class="valid-feedback">
-                    Looks good!
-                  </div> *@
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Add A New Flight</h5>
+
+                    <!-- Custom Styled Validation -->
+                    <form class="row g-3 needs-validation" novalidate asp-action="" asp-controller="Admin">
+                        <div class="col-md-4">
+                            <label for="validationCustom01" class="form-label">Flight Number</label>
+                            <input type="text" class="form-control" id="validationCustom01" required asp-for="FlightNumber">
+                            @*   <div class="valid-feedback">
+                            Looks good!
+                            </div> *@
                             <div class="my-3">
-                            @if (TempData["FlightError"] != null)
-                            {
-                                <div class="alert alert-danger d-flex align-items-center gap-3" role="alert">
-                                    <i class="bi bi-exclamation-triangle-fill fs-4"></i>
-                                    @TempData["FlightError"]
-                                </div>
-                            }
+                                @if (TempData["FlightError"] != null)
+                                {
+                                    <div class="alert alert-danger d-flex align-items-center gap-3" role="alert">
+                                        <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+                                        @TempData["FlightError"]
+                                    </div>
+                                }
                             </div>
                             <div class="invalid-feedback">
                                 Please type a valid Flight Number.
                             </div>
-                </div>
+                        </div>
                         <div class="col-md-4">
                             <label for="validationCustom04" class="form-label">Airline Name</label>
                             <select class="form-select" id="validationCustom04" required asp-for="AirlineId" asp-items="ViewBag.AirlineId">
                                 <option selected disabled value="">----------- Select Airline Name -----------</option>
-                                
+
                             </select>
                             <div class="invalid-feedback">
                                 Please select a valid Airline Name.
@@ -52,7 +52,7 @@
                             <label for="validationCustom04" class="form-label">OriginCity Name </label>
                             <select class="form-select" id="validationCustom04" required asp-for="OriginCityId" asp-items="ViewBag.OriginCityId">
                                 <option selected disabled value="">----------- Select OriginCity Name -----------</option>
-                             
+
                             </select>
 
                             <div class="invalid-feedback">
@@ -72,7 +72,7 @@
                             <label for="validationCustom04" class="form-label">DestinationCity Name</label>
                             <select class="form-select" id="validationCustom04" required asp-for="DestinationCityId" asp-items="ViewBag.DestinationCityId">
                                 <option selected disabled value="">--- Select DestinationCity Name ---</option>
-                          
+
                             </select>
                             <div class="invalid-feedback">
                                 Please select a valid DestinationCity Name.
@@ -82,7 +82,7 @@
                             <label for="validationCustom04" class="form-label">Coach</label>
                             <select class="form-select" id="validationCustom04" required asp-for="CoachId" asp-items="ViewBag.CoachID">
                                 <option selected disabled value="">---------- Select Coach Name -----------</option>
-                                
+
                             </select>
                             <div class="invalid-feedback">
                                 Please select a valid Class.
@@ -97,7 +97,7 @@
                                     Please choose a Departure Time.
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                         <div class="col-md-4">
                             <label for="validationCustom04" class="form-label">Arrival Time</label>
                             <div class="input-group has-validation">
@@ -108,17 +108,17 @@
                                 </div>
                             </div>
                         </div>
-                
-                <div class="col-md-4">
-                  <label for="validationCustomUsername" class="form-label">Total Seats</label>
-                  <div class="input-group has-validation">
-                    <span class="input-group-text" id="inputGroupPrepend"></span>
+
+                        <div class="col-md-4">
+                            <label for="validationCustomUsername" class="form-label">Total Seats</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text" id="inputGroupPrepend"></span>
                                 <input type="number" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required asp-for="TotalSeats" min="0">
-                    <div class="invalid-feedback">
+                                <div class="invalid-feedback">
                                     Please type a Total Seats.
-                    </div>
-                  </div>
-                </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-4">
                             <label for="validationCustomUsername" class="form-label">Sky Miles</label>
                             <div class="input-group has-validation">
@@ -129,7 +129,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                         <div class="col-md-4">
                             <label for="validationCustomUsername" class="form-label">Stops</label>
                             <div class="input-group has-validation">
@@ -151,7 +151,7 @@
                             </div>
                         </div>
 
-          
+
 
 
 
@@ -161,69 +161,69 @@
 
 
                         @*<div class="form-group">
-                            <label for="citySearch">Enter City Name:</label>
-                            <input type="text" id="citySearch" class="form-control" placeholder="Enter city name" />
+                        <label for="citySearch">Enter City Name:</label>
+                        <input type="text" id="citySearch" class="form-control" placeholder="Enter city name" />
                         </div>
 
                         <div class="form-group">
-                            <label for="countryDisplay">Country Name:</label>
-                            <input type="text" id="countryDisplay" class="form-control" readonly />
+                        <label for="countryDisplay">Country Name:</label>
+                        <input type="text" id="countryDisplay" class="form-control" readonly />
                         </div>
 
                         @section Scripts {
-                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-                            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+                        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-                            <script type="text/javascript">
-                                $(document).ready(function () {
-                                    $("#citySearch").autocomplete({
-                                        source: function (request, response) {
-                                            $.ajax({
-                                                url: '@Url.Action("GetCities", "Admin")',
-                                                type: "GET",
-                                                dataType: "json",
-                                                data: { term: request.term },
-                                                success: function (data) {
-                                                    response($.map(data, function (item) {
-                                                        return {
-                                                            label: item.CityName + ", " + item.CountryName, // Shows City and Country in suggestions
-                                                            value: item.CityName, // Only CityName will be selected in the textbox
-                                                            country: item.CountryName // Store CountryName for later use
-                                                        };
-                                                    }));
-                                                }
-                                            });
-                                        },
-                                        minLength: 2,
-                                        select: function (event, ui) {
-                                            // Set the city name in the text box
-                                            $("#citySearch").val(ui.item.value);
-                                            // Set the corresponding country name in the other text box
-                                            $("#countryDisplay").val(ui.item.country);
-                                            return false;
-                                        }
-                                    });
-                                });
-                            </script>
+                        <script type="text/javascript">
+                        $(document).ready(function () {
+                        $("#citySearch").autocomplete({
+                        source: function (request, response) {
+                        $.ajax({
+                        url: '@Url.Action("GetCities", "Admin")',
+                        type: "GET",
+                        dataType: "json",
+                        data: { term: request.term },
+                        success: function (data) {
+                        response($.map(data, function (item) {
+                        return {
+                        label: item.CityName + ", " + item.CountryName, // Shows City and Country in suggestions
+                        value: item.CityName, // Only CityName will be selected in the textbox
+                        country: item.CountryName // Store CountryName for later use
+                        };
+                        }));
+                        }
+                        });
+                        },
+                        minLength: 2,
+                        select: function (event, ui) {
+                        // Set the city name in the text box
+                        $("#citySearch").val(ui.item.value);
+                        // Set the corresponding country name in the other text box
+                        $("#countryDisplay").val(ui.item.country);
+                        return false;
+                        }
+                        });
+                        });
+                        </script>
                         } *@
 
 
 
 
-                     
+
                         <div class="col-12 d-flex justify-content-end">
-                  <button class="btn btn-primary w-100" type="submit">Add Flight</button>
+                            <button class="btn btn-primary w-100" type="submit">Add Flight</button>
+                        </div>
+                    </form><!-- End Custom Styled Validation -->
+
                 </div>
-              </form><!-- End Custom Styled Validation -->
-
             </div>
-          </div>
 
-         
+
         </div>
-      </div>
-    </section>
+    </div>
+</section>
 <script>
     function initImageUpload(box) {
         let uploadField = box.querySelector('.image-upload');
