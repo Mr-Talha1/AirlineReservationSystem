@@ -32,6 +32,9 @@
 <!-- ================================
     START HERO-WRAPPER AREA
 ================================= -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
 <section class="hero-wrapper hero-wrapper6">
     <div class="hero-box hero-bg-6">
         <div class="container">
@@ -266,7 +269,9 @@
                                                     <span class="la la-calendar form-icon"></span>
                                                     <input class="date-range form-control" type="date" name="ReturningDate" />
                                                 </div>
+                                                
                                             </div>
+                                           
                                         </div>
                                         <!-- end col-lg-3 -->
                                        @*  <div class="col-lg-3 pe-0">
@@ -1215,9 +1220,70 @@
         </div>
         <!-- end row -->
     </div>
+    <div class="modal fade" id="disablebackdrop" tabindex="-1" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-danger text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title">Error</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="date_Validation">Can't select returning date before departing date.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <!-- Optionally, you can include another button here if needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- end container -->
 </section>
+
+
 <!-- end cta-area -->
 <!-- ================================
     END CTA AREA
 ================================= -->
+
+<script>
+
+    $(document).ready(function () {
+        // Listen for changes in the DepartingDate and ReturningDate fields
+        $('input[name="ReturningDate"],input[name="DepartingDate"]').on('change', function () {
+            validateDates();
+        });
+
+        function validateDates() {
+            // Get the values of DepartingDate and ReturningDate by name
+            var departingDate = $('input[name="DepartingDate"]').val();
+            var returningDate = $('input[name="ReturningDate"]').val();
+
+            // Check if both dates have been selected
+            // if (!departingDate || !returningDate) {
+            //     alert('Please select both Departing and Returning dates.');
+            //     return; // Exit the function if either date is missing
+            // }
+
+            // Convert the dates to Date objects for comparison
+            var departingDateObj = new Date(departingDate);
+            var returningDateObj = new Date(returningDate);
+
+            // Compare the dates
+            if (returningDateObj < departingDateObj) {
+                // Reset the ReturningDate input
+                $('input[name="ReturningDate"]').val('');
+                $('#date_Validation').text('Returning date must be after departing date.');
+                var myModal = new bootstrap.Modal(document.getElementById('disablebackdrop'), {
+                    backdrop: 'static'
+                });
+                myModal.show();
+            } else {
+                // Clear the error message if dates are valid
+                $('#date_Validation').text('');
+            }
+        }
+    });
+
+</script>

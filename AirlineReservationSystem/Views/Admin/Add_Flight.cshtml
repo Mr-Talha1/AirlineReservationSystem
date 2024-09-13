@@ -5,6 +5,7 @@
     Layout = "_AdminLayout";
 }
 <link href="~/css/imageUpload.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <div class="pagetitle">
       <h1>Add One Way Flight</h1>
     </div><!-- End Page Title -->
@@ -91,7 +92,7 @@
                             <label for="validationCustom04" class="form-label">Departure Time</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend"></span>
-                                <input type="datetime-local" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required asp-for="DepartureTime">
+                                <input type="datetime-local" class="form-control" id="departureTime" required asp-for="DepartureTime">
                                 <div class="invalid-feedback">
                                     Please choose a Departure Time.
                                 </div>
@@ -101,7 +102,7 @@
                             <label for="validationCustom04" class="form-label">Arrival Time</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend"></span>
-                                <input type="datetime-local" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required asp-for="ArrivalTime">
+                                <input type="datetime-local" class="form-control" id="arrivalTime" required asp-for="ArrivalTime">
                                 <div class="invalid-feedback">
                                     Please choose a Arrival Time.
                                 </div>
@@ -314,5 +315,37 @@
 
         }
     }
+    $(document).ready(function () {
+        // Listen for changes in the ArrivalTime field
+        $('#arrivalTime').on('change', function () {
+            validateTimes();
+            
+        });
+
+        function validateTimes() {
+            // Get the values of DepartureTime and ArrivalTime by ID
+            var departureTime = $('#departureTime').val();
+            var arrivalTime = $('#arrivalTime').val();
+
+            // Check if both times have been selected
+            if (!departureTime || !arrivalTime) {
+                alert('Please select both Departure and Arrival times.');
+                return; // Exit the function if either time is missing
+            }
+
+            // Convert the times to Date objects for comparison
+            var departureDate = new Date(departureTime);
+            var arrivalDate = new Date(arrivalTime);
+             
+            // Compare the date and time
+            if (arrivalDate < departureDate) {
+                // Reset the ArrivalTime input
+                $('#arrivalTime').val('');
+            } else {
+                // Clear the error message if times are valid
+                $('#arrival_Validation').text('');
+            }
+        }
+    });
 
 </script>

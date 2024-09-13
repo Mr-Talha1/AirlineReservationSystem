@@ -5,6 +5,7 @@
     Layout = "_AdminLayout";
 }
 <link href="~/css/imageUpload.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="pagetitle">
     <h1>Add Round Trip Flight</h1>
 </div><!-- End Page Title -->
@@ -88,7 +89,7 @@
                             <label for="validationCustom04" class="form-label">Departure Time</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend"></span>
-                                <input type="datetime-local" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required asp-for="DepartureTime">
+                                <input type="datetime-local" class="form-control" id="DepartureTime" aria-describedby="inputGroupPrepend" required asp-for="DepartureTime">
                                 <div class="invalid-feedback">
                                     Please choose a Departure Time.
                                 </div>
@@ -98,7 +99,7 @@
                             <label for="validationCustom04" class="form-label">Arrival Time</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend"></span>
-                                <input type="datetime-local" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required asp-for="ArrivalTime">
+                                <input type="datetime-local" class="form-control" id="ArrivalTime" aria-describedby="inputGroupPrepend" required asp-for="ArrivalTime">
                                 <div class="invalid-feedback">
                                     Please choose a Arrival Time.
                                 </div>
@@ -109,7 +110,7 @@
                             <label for="validationCustom04" class="form-label">Return Departure Time</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend"></span>
-                                <input type="datetime-local" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required asp-for="ReturnDepartureTime">
+                                <input type="datetime-local" class="form-control" id="ReturnDepartureTime" aria-describedby="inputGroupPrepend" required asp-for="ReturnDepartureTime">
                                 <div class="invalid-feedback">
                                     Please choose a Return Departure Time.
                                 </div>
@@ -121,7 +122,7 @@
                             <label for="validationCustom04" class="form-label">Return Arrival Time</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend"></span>
-                                <input type="datetime-local" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required asp-for="ReturnArrivalTime">
+                                <input type="datetime-local" class="form-control" id="ReturnArrivalTime" aria-describedby="inputGroupPrepend" required asp-for="ReturnArrivalTime">
                                 <div class="invalid-feedback">
                                     Please choose a Return Arrival Time.
                                 </div>
@@ -280,5 +281,70 @@
 
         }
     }
+
+    $(document).ready(function () {
+        // Initially hide the validation message
+        $('#arrival_Validation').hide();
+
+        // Listen for changes in the ArrivalTime field
+        $('#DepartureTime, #ArrivalTime, #ReturnDepartureTime, #ReturnArrivalTime').on('change', function () {
+            validateTimes();
+        });
+
+        function validateTimes() {
+            // Get the values of DepartureTime and ArrivalTime by ID
+            var departureTime = $('#DepartureTime').val();
+            var arrivalTime = $('#ArrivalTime').val();
+            var returnDepartureTime = $('#ReturnDepartureTime').val();
+            var returnArrivalTime = $('#ReturnArrivalTime').val();
+
+            // Reset all error messages
+            $('#arrival_Validation').hide();
+
+            let valid = true;
+
+            // Check if Arrival Time is less than Departure Time
+            if (departureTime && arrivalTime) {
+                var depDate = new Date(departureTime);
+                var arrDate = new Date(arrivalTime);
+
+                if (arrDate < depDate) {
+                    $('#ArrivalTime').val('');
+                    $('#arrival_Validation').text('Arrival Time cannot be before Departure Time. Please select a valid time.').show();
+                    valid = false;
+                }
+            }
+
+            // Check if Return Departure Time is less than Arrival Time
+            if (arrivalTime && returnDepartureTime) {
+                var arrDate = new Date(arrivalTime);
+                var returnDepDate = new Date(returnDepartureTime);
+
+                if (returnDepDate < arrDate) {
+                    $('#ReturnDepartureTime').val('');
+                    $('#return_departure_Validation').text('Return Departure Time cannot be before Arrival Time. Please select a valid time.').show();
+                    valid = false;
+                }
+            }
+
+            // Check if Return Arrival Time is less than Return Departure Time
+            if (returnDepartureTime && returnArrivalTime) {
+                var returnDepDate = new Date(returnDepartureTime);
+                var returnArrDate = new Date(returnArrivalTime);
+
+                if (returnArrDate < returnDepDate) {
+                    $('#ReturnArrivalTime').val('');
+                    $('#return_arrival_Validation').text('Return Arrival Time cannot be before Return Departure Time. Please select a valid time.').show();
+                    valid = false;
+                }
+            }
+
+            // Prevent form submission if any validation fails
+            if (!valid) {
+                event.preventDefault();
+            }
+        }
+    });
+
 
 </script>
