@@ -88,25 +88,19 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <label for="validationCustom04" class="form-label">Departure Time</label>
-                            <div class="input-group has-validation">
-                                <span class="input-group-text" id="inputGroupPrepend"></span>
-                                <input type="datetime-local" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required asp-for="DepartureTime">
-                                <div class="invalid-feedback">
-                                    Please choose a Departure Time.
-                                </div>
-                            </div>
-                        </div> 
-                        <div class="col-md-4">
-                            <label for="validationCustom04" class="form-label">Arrival Time</label>
-                            <div class="input-group has-validation">
-                                <span class="input-group-text" id="inputGroupPrepend"></span>
-                                <input type="datetime-local" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required asp-for="ArrivalTime">
-                                <div class="invalid-feedback">
-                                    Please choose a Arrival Time.
-                                </div>
-                            </div>
-                        </div>
+     <label for="departureTime" class="form-label">Departure Time</label>
+     <input type="datetime-local" class="form-control" id="departureTime" required asp-for="DepartureTime">
+     <div id="departure_Validation" class="invalid-feedback">
+         Please choose a Departure Time.
+     </div>
+ </div>
+                         <div class="col-md-4">
+     <label for="arrivalTime" class="form-label">Arrival Time</label>
+     <input type="datetime-local" class="form-control" id="arrivalTime" required asp-for="ArrivalTime">
+     <div id="Arrival_Validation" class="invalid-feedback">
+         Please choose a Arrival Time.
+     </div>
+ </div>
                 
                 <div class="col-md-4">
                   <label for="validationCustomUsername" class="form-label">Total Seats</label>
@@ -153,59 +147,39 @@
           
 
 
+                        <script>
+                            function validateTimes() {
+                                // Get the values of DepartureTime and ArrivalTime by ID
+                                var departureTime = $('#departureTime').val();
+                                var arrivalTime = $('#arrivalTime').val();
 
+                                // Check if both times have been selected
+                                if (!departureTime || !arrivalTime) {
+                                    alert('Please select both Departure and Arrival times.');
+                                    return; // Exit the function if either time is missing
+                                }
 
+                                // Convert the times to Date objects for comparison
+                                var departureDate = new Date(departureTime);
+                                var arrivalDate = new Date(arrivalTime);
 
+                                // Compare the dates and handle invalid case
+                                if (arrivalDate < departureDate) {
+                                    // Reset the ArrivalTime input
+                                    $('#arrivalTime').val('');
+                                    // alert('Please Enter Valid time')
+                                    // Display error message on arrival_Validation
+                                    $('#arrival_Validation').text('Arrival Time cannot be before Departure Time. Please select a valid time.');
 
-
-
-                        @*<div class="form-group">
-                            <label for="citySearch">Enter City Name:</label>
-                            <input type="text" id="citySearch" class="form-control" placeholder="Enter city name" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="countryDisplay">Country Name:</label>
-                            <input type="text" id="countryDisplay" class="form-control" readonly />
-                        </div>
-
-                        @section Scripts {
-                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-                            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-                            <script type="text/javascript">
-                                $(document).ready(function () {
-                                    $("#citySearch").autocomplete({
-                                        source: function (request, response) {
-                                            $.ajax({
-                                                url: '@Url.Action("GetCities", "Admin")',
-                                                type: "GET",
-                                                dataType: "json",
-                                                data: { term: request.term },
-                                                success: function (data) {
-                                                    response($.map(data, function (item) {
-                                                        return {
-                                                            label: item.CityName + ", " + item.CountryName, // Shows City and Country in suggestions
-                                                            value: item.CityName, // Only CityName will be selected in the textbox
-                                                            country: item.CountryName // Store CountryName for later use
-                                                        };
-                                                    }));
-                                                }
-                                            });
-                                        },
-                                        minLength: 2,
-                                        select: function (event, ui) {
-                                            // Set the city name in the text box
-                                            $("#citySearch").val(ui.item.value);
-                                            // Set the corresponding country name in the other text box
-                                            $("#countryDisplay").val(ui.item.country);
-                                            return false;
-                                        }
-                                    });
-                                });
-                            </script>
-                        } *@
+                                    // Optionally, you can style the error message (e.g., red text)
+                                    $('#arrival_Validation').css('color', 'red').show();
+                                } else {
+                                    // Clear the error message if times are valid
+                                    $('#arrival_Validation').text('').hide();
+                                }
+                            }
+                            });
+                        </script>
 
 
 

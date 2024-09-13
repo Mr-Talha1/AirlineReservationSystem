@@ -52,7 +52,8 @@ namespace AirlineReservationSystem.Controllers
                     .Where(f => f.OriginCity.CityName == FlyingFrom &&
                                 f.DestinationCity.CityName == Flyingto &&
                                 f.DepartureTime.Date == flightdate.Date&&
-                                f.Coach.CoachId==couches)
+                                f.Coach.CoachId==couches &&
+                            f.FlightType == "One Way")
                     .ToList();
                 ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
                 ViewData["OriginName"] = FlyingFrom;
@@ -74,7 +75,8 @@ namespace AirlineReservationSystem.Controllers
                 .Include(f => f.Coach)
                 .Where(f => f.OriginCity.CityName == FlyingFrom &&
                             f.DestinationCity.CityName == Flyingto &&
-                            f.DepartureTime.Date == flightdate.Date)
+                            f.DepartureTime.Date == flightdate.Date&&
+                            f.FlightType== "One Way")
                 .ToList();
             ViewData["CoachID"] = new SelectList(_context.Coaches, "CoachId", "CoachName");
             ViewData["OriginName"] = FlyingFrom;
