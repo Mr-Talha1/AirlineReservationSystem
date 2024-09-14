@@ -115,7 +115,7 @@
                                                 <label class="label-text">Departing</label>
                                                 <div class="form-group">
                                                     <span class="la la-calendar form-icon"></span>
-                                                    <input class="date-range form-control" required type="date" name="flightdate"/>
+                                                    <input class="date-range form-control" id="flightdate" required type="date" name="flightdate" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1248,6 +1248,9 @@
 ================================= -->
 
 <script>
+
+    let today = new Date().toISOString().split('T')[0];
+    document.getElementById('flightdate').setAttribute('min', today);
 
     $(document).ready(function () {
         // Listen for changes in the DepartingDate and ReturningDate fields

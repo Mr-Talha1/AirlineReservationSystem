@@ -59,15 +59,11 @@
                                         <td data-type="date" data-format="YYYY/DD/MM">@flights.CreatedAt?.ToString("dd/MMM/yyyy")</td>
                                         <td data-type="date">
                                             <select class="form-control">
-
                                                 <option value="Other" disabled selected>Action</option>
                                                 <option value="Cancel">Cancel</option>
                                                 <option value="Delayed">Delayed</option>
-
                                             </select>
                                         </td>@*  
-
-
                                         <td data-type="date"><a asp-action="" asp-controller="Admin" asp-route-id="@flights.FlightId" onclick="return confirm('Are You Sure Delete this User?')"><i class="bi bi-trash" style="color:red"></i></a></td> *@
                                     </tr>
                                 }
